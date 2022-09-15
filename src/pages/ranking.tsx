@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { NextPage } from "next";
-import { signIn, signOut, useSession } from "next-auth/react";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import Navbar from "../lib/navbar";
@@ -33,7 +32,6 @@ const buttons = [
 ];
 
 const Ranking: NextPage = () => {
-  const { data: session, status } = useSession();
   const { data: ranking, isLoading } = trpc.useQuery(["auth.ranking.get"], {});
   const ctx = trpc.useContext();
   const insertRanking = trpc.useMutation("auth.ranking.Insert", {
@@ -99,7 +97,7 @@ const Ranking: NextPage = () => {
       candidateSixRanking: candidates[5]!.days,
       candidateSevenRanking: candidates[6]!.days,
     });
-	await setCandidates([...updatedCandidate]);
+    await setCandidates([...updatedCandidate]);
   };
 
   return (
@@ -112,8 +110,6 @@ const Ranking: NextPage = () => {
       </Head>
 
       <main className="min-h-screen bg-gradient-to-b from-green-900 to-gray-900">
-        <button onClick={() => signIn("twitch")}>Login with Discord</button>
-
         <div className="p-3">
           {candidates.map((candidate, index) => (
             <div

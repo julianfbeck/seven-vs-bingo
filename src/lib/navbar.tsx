@@ -1,11 +1,14 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment, useEffect } from "react";
+import { Fragment, useEffect, useState } from "react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
-
-const navigation = [
+import { Icon } from "@iconify/react";
+import { useRouter } from "next/router";
+import Image from "next/image";
+const navigationTemplate = [
   { name: "Bingo", href: "/", current: true },
-  { name: "Ranking", href: "ranking", current: false },
+  { name: "Ranking", href: "/ranking", current: false },
 ];
 
 function classNames(...classes: string[]) {
@@ -13,6 +16,20 @@ function classNames(...classes: string[]) {
 }
 
 export default function Navbar() {
+  const { asPath } = useRouter();
+  const { data: session, status } = useSession();
+  const [navigation, setNavigation] = useState(navigationTemplate);
+  useEffect(() => {
+    const updatedNavigation = [...navigationTemplate];
+    updatedNavigation.forEach((item) => {
+      if (item.href === asPath) {
+        item.current = true;
+      } else {
+        item.current = false;
+      }
+    });
+    setNavigation(updatedNavigation);
+  }, []);
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
@@ -64,6 +81,20 @@ export default function Navbar() {
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                {status == "unauthenticated" && (
+                  <button
+                    type="button"
+                    className="text-white bg-[#874af6] hover:bg-[#874af6]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#3b5998]/55 mr-2"
+                    onClick={() => signIn("twitch")}
+                  >
+                    Anmelden
+                    <Icon
+                      className="ml-2 ml-1 w-4 h-4"
+                      icon="akar-icons:twitch-fill"
+                      color="white"
+                    />
+                  </button>
+                )}
                 <button
                   type="button"
                   className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
@@ -77,9 +108,11 @@ export default function Navbar() {
                   <div>
                     <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <span className="sr-only">Open user menu</span>
-                      <img
+                      <Image
                         className="h-8 w-8 rounded-full"
-                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                        src={session?.user?.image || ""}
+                        width={32}
+                        height={32}
                         alt=""
                       />
                     </Menu.Button>
@@ -122,15 +155,17 @@ export default function Navbar() {
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
-                          <a
-                            href="#"
+                          <button
                             className={classNames(
                               active ? "bg-gray-100" : "",
                               "block px-4 py-2 text-sm text-gray-700"
                             )}
+                            onClick={() => {
+                              signOut();
+                            }}
                           >
                             Sign out
-                          </a>
+                          </button>
                         )}
                       </Menu.Item>
                     </Menu.Items>

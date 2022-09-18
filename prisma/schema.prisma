@@ -71,12 +71,13 @@ model VerificationToken {
 }
 
 model Projection {
-    id           String       @id @default(cuid())
-    text         String
-    createdAt    DateTime     @default(now())
-    description  String
-    isApproved   Boolean      @default(false)
-    bingoEntries BingoEntry[]
+    id            String       @id @default(cuid())
+    text          String
+    createdAt     DateTime     @default(now())
+    description   String
+    isApproved    Boolean      @default(false)
+    hasBecomeTrue Boolean      @default(false)
+    bingoEntries  BingoEntry[]
 }
 
 model Ranking {

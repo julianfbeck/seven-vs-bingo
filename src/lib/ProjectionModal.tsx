@@ -64,7 +64,8 @@ const SelectProjectionModal: React.FC<SelectProjectionModalProps> = ({
 }) => {
   const { data: projections } = trpc.useQuery(["projection.getAll"]);
   const ctx = trpc.useContext();
-  const [selectedProjectionId, setSelectedProjectionID] = useState("");
+  const [selectedProjectionId, setSelectedProjectionID] =
+    useState(defaultProjectionId);
   const postBingoInsert = trpc.useMutation("auth.bingoEntriesInsert", {
     onMutate: () => {
       ctx.cancelQuery(["projection.getAll"]);
@@ -81,12 +82,12 @@ const SelectProjectionModal: React.FC<SelectProjectionModalProps> = ({
   return (
     <Dialog open={isOpen}>
       <DialogContent>
-        <DialogTitle>Neue Vorhersage</DialogTitle>
+        <DialogTitle>Bingo Karte bearbeiten</DialogTitle>
         <DialogDescription>
-          Wähle deine Vorhersage für dieses Feld aus
+          Wähle deine Vorhersage für die Bingokarte {fieldNumber} aus.
         </DialogDescription>
         <Fieldset>
-          <Label htmlFor="username">Feld {fieldNumber}</Label>
+          <Label htmlFor="username">Vorhersage {fieldNumber}</Label>
           <ProjectionSelect
             projections={projections || []}
             defaulValue={defaultProjectionId}
@@ -101,6 +102,9 @@ const SelectProjectionModal: React.FC<SelectProjectionModalProps> = ({
               disabled={!selectedProjectionId}
               className="text-green-50 border border-green-300 rounded bg-green-500 bg  p-2 text-xs font-medium disabled:opacity-50 disabled:cursor-not-allowed"
               onClick={async () => {
+                if (!selectedProjectionId) {
+                  return;
+                }
                 await postBingoInsert.mutateAsync({
                   projectionId: selectedProjectionId,
                   position: fieldNumber,

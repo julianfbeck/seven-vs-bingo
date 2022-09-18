@@ -32,24 +32,29 @@ export const bingoEntriesRouter = createRouter()
       projectionId: z.string(),
     }),
     async resolve({ ctx, input }) {
+      console.log("input", input);
       if (!ctx.session?.user?.id) {
         throw new TRPCError({ code: "UNAUTHORIZED" });
       }
-      await ctx.prisma.bingoEntry.upsert({
-        where: {
-          position_userId: {
-            position: input.position,
-            userId: ctx.session.user.id,
+      try {
+        await ctx.prisma.bingoEntry.upsert({
+          where: {
+            position_userId: {
+              position: input.position,
+              userId: ctx.session.user.id,
+            },
           },
-        },
-        create: {
-          userId: ctx.session?.user?.id,
-          position: input.position,
-          projectionId: input.projectionId,
-        },
-        update: {
-          projectionId: input.projectionId,
-        },
-      });
+          create: {
+            userId: ctx.session?.user?.id,
+            position: input.position,
+            projectionId: input.projectionId,
+          },
+          update: {
+            projectionId: input.projectionId,
+          },
+        });
+      } catch (error) {
+        console.log("error", error);
+      }
     },
   });

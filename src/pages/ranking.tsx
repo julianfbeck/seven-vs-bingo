@@ -116,7 +116,7 @@ const Ranking: NextPage = () => {
               key={index}
               className=" container mx-auto bg-slate-100 rounded-xl p-3 dark:bg-slate-800 mt-3 text-white border-2 border-white"
             >
-              <div className="flex">
+              <div className="flex flex-wrap">
                 <div className="flex-auto text-2xl ">{candidate.name}</div>
                 <div className="flex items-center">
                   Tage:

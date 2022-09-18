@@ -4,7 +4,6 @@ import Navbar from "../lib/navbar";
 import Projections from "../lib/NewProjection";
 
 const Home: NextPage = () => {
-
   return (
     <>
       <Navbar />
@@ -15,6 +14,16 @@ const Home: NextPage = () => {
       </Head>
 
       <main className="min-h-screen bg-gradient-to-b from-black to-slate-900 ">
+        <div className="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-10 lg:px-12">
+          <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+            Deine Ideen für das Seven vs. Wild Bingo
+          </h1>
+          <p className="mb-4 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">
+            Füge hier deine Ideen für das Seven vs. Wild Bingo ein und erstelle
+            dir eine eigene Bingo Karte für die zweite Staffel von Seven vs.
+            Wild.
+          </p>
+        </div>
         <div className="p-3">
           <Projections />
         </div>

@@ -77,6 +77,7 @@ model Projection {
     description   String
     isApproved    Boolean      @default(false)
     hasBecomeTrue Boolean      @default(false)
+    difficulty    Int          @default(0)
     bingoEntries  BingoEntry[]
 }
 
@@ -97,7 +98,7 @@ model Ranking {
 model BingoEntry {
     id           String     @id @default(cuid())
     createdAt    DateTime   @default(now())
-    userId       String     @unique
+    userId       String
     position     Int
     projectionId String
     projection   Projection @relation(fields: [projectionId], references: [id], onDelete: Cascade)

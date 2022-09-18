@@ -13,7 +13,7 @@ export const Field: React.FC<TextProps> = ({ fieldNumber, projection }) => {
 
   function CustomButton() {
     if (projection && projection.hasBecomeTrue) {
-      return <CorrectField />;
+      return <CorrectField fieldNumber={fieldNumber} projection={projection} />;
     } else if (projection) {
       return <NormalField fieldNumber={fieldNumber} projection={projection} />;
     } else {
@@ -23,7 +23,7 @@ export const Field: React.FC<TextProps> = ({ fieldNumber, projection }) => {
   return (
     <>
       <button onClick={() => editMode(true)}>
-        <CustomButton /> 
+        <CustomButton />
       </button>
       <SelectProjectionModal
         fieldNumber={fieldNumber}
@@ -50,7 +50,9 @@ const EmptyField = () => {
 const NormalField = ({ fieldNumber, projection }: TextProps) => {
   return (
     <div className="container aspect-square bg-slate-100 rounded-xl p-0.5 dark:bg-slate-800 mt-3 text-white border-2 border-white">
-      <div className="absolute  p-1 text-green-300 font-medium">{fieldNumber}</div>
+      <div className="absolute  p-1 text-green-300 font-medium">
+        {fieldNumber}
+      </div>
 
       <div className="flex flex-col justify-center items-center h-full text-white text-xs lg:text-lg hover:decoration-green-500 hover:underline overflow-hidden">
         {projection?.text}
@@ -59,8 +61,14 @@ const NormalField = ({ fieldNumber, projection }: TextProps) => {
   );
 };
 
-const CorrectField = () => {
+const CorrectField = ({ fieldNumber, projection }: TextProps) => {
   return (
-    <div className="container aspect-square bg-slate-100 rounded-xl p-3 dark:bg-slate-800 mt-3 text-white border-2 border-white"></div>
+    <div className="container aspect-square  rounded-xl p-0.5 bg-green-500 mt-3 text-white border-2 border-green-900">
+      <div className="absolute  p-1  text-white font-medium">{fieldNumber}</div>
+
+      <div className="flex flex-col justify-center items-center h-full text-white text-xs lg:text-lg hover:decoration-green-500 hover:underline overflow-hidden">
+        {projection?.text}
+      </div>
+    </div>
   );
 };

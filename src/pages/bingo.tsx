@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import { Field } from "../lib/Field";
 import Navbar from "../lib/navbar";
+import Points from "../lib/Points";
 import { trpc } from "../utils/trpc";
 
 const Home: NextPage = () => {
@@ -23,20 +24,22 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="min-h-screen bg-gradient-to-b from-black to-slate-900 ">
-        <div className="container mx-auto">
-          <div className="grid grid-cols-5 gap-5">
-            {!isLoading &&
-              fields.map((field) => (
-                <Field
-                  key={field}
-                  fieldNumber={field}
-                  text={String(field)}
-                  projection={getProjection(field)}
-                />
-              ))}
+      <main className="min-h-screen bg-gradient-to-b from-black to-slate-900">
+        <div className="max-w-screen-md mx-auto  container p-2">
+          <div className="mx-auto  container ">
+            <div className="grid grid-cols-5 gap-4">
+              {!isLoading &&
+                fields.map((field) => (
+                  <Field
+                    key={field}
+                    fieldNumber={field}
+                    projection={getProjection(field)}
+                  />
+                ))}
+            </div>
           </div>
         </div>
+        <Points />
       </main>
     </>
   );

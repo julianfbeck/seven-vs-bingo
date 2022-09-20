@@ -1,10 +1,25 @@
-import type { NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
+import { getSession } from "next-auth/react";
 import Head from "next/head";
 import { Field } from "../lib/Field";
 import Navbar from "../lib/navbar";
 import Points from "../lib/Points";
 import { trpc } from "../utils/trpc";
 
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession(context);
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: {},
+  };
+};
 const Home: NextPage = () => {
   const { data: entries, isLoading } = trpc.useQuery(["auth.bingoEntriesget"]);
   const fields = [

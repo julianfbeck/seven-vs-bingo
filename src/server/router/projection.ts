@@ -1,10 +1,15 @@
 import { createRouter } from "./context";
 import { z } from "zod";
+import { TRPCError } from "@trpc/server";
 
 export const projectionRouter = createRouter()
   .query("getAll", {
     async resolve({ ctx }) {
-      return await ctx.prisma.projection.findMany();
+      return await ctx.prisma.projection.findMany({
+        where: {
+          isApproved: true,
+        },
+      });
     },
   })
   .mutation("Insert", {
@@ -21,7 +26,61 @@ export const projectionRouter = createRouter()
           data: {
             text: input.text,
             description: input.description,
-
+          },
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  })
+  .middleware(async ({ ctx, next }) => {
+    // Any queries or mutations after this middleware will
+    // raise an error unless there is a current session
+    if (!ctx.session) {
+      throw new TRPCError({ code: "UNAUTHORIZED" });
+    }
+    return next();
+  })
+  .query("auth.getAllNew", {
+    async resolve({ ctx }) {
+      if (!ctx.session?.user?.id) {
+        throw new TRPCError({ code: "UNAUTHORIZED" });
+      }
+      return await ctx.prisma.projection.findMany({
+        where: {
+          isApproved: false,
+        },
+      });
+    },
+  })
+  .mutation("Approve", {
+    input: z.object({
+      id: z.string(),
+    }),
+    async resolve({ ctx, input }) {
+      try {
+        await ctx.prisma.projection.update({
+          where: {
+            id: input.id,
+          },
+          data: {
+            isApproved: true,
+          },
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  })
+  .mutation("Delete", {
+    input: z.object({
+      id: z.string(),
+    }),
+    async resolve({ ctx, input }) {
+      try {
+        await ctx.prisma.projection.delete({
+          where: {
+            id: input.id,
           },
         });
       } catch (error) {

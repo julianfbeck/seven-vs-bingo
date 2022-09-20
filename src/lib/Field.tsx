@@ -50,7 +50,7 @@ const EmptyField = () => {
 const NormalField = ({ fieldNumber, projection }: TextProps) => {
   return (
     <div className="container aspect-square bg-slate-100 rounded-xl p-0.5 dark:bg-slate-800 mt-3 text-white border-2 border-white">
-      <div className="absolute  p-1 text-green-300 font-medium">
+      <div className="absolute  p-1 text-green-300">
         {fieldNumber}
       </div>
 

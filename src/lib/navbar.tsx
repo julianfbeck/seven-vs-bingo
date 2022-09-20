@@ -7,7 +7,8 @@ import { Icon } from "@iconify/react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 const navigationTemplate = [
-  { name: "Bingo", href: "/bingo", current: true },
+  { name: "Start", href: "/", current: true },
+  { name: "Bingo", href: "/bingo", current: false },
   { name: "Ranking", href: "/ranking", current: false },
 ];
 

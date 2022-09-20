@@ -1,7 +1,10 @@
 import type { GetServerSideProps, NextPage } from "next";
 import { getSession } from "next-auth/react";
 import Head from "next/head";
+import { useState } from "react";
 import Navbar from "../lib/navbar";
+import { TabBar } from "../lib/TabBar";
+import { trpc } from "../utils/trpc";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context);
@@ -36,6 +39,17 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   };
 };
 const Admin: NextPage = () => {
+  const [currentTab, setCurrentTab] = useState("bingo");
+
+  const setTab = (tab: string) => {
+    switch (tab) {
+      case "bingo":
+        return <BingoEntries />;
+      case "dashboard":
+        return <button />;
+    }
+  };
+
   return (
     <>
       <Navbar />
@@ -45,7 +59,41 @@ const Admin: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="min-h-screen bg-gradient-to-b from-black to-slate-900"></main>
+      <main className="min-h-screen bg-gradient-to-b from-black to-slate-900">
+        <div className="container mx-auto max-w-sm mb-10">
+          <TabBar changeTab={setCurrentTab} currentTab={currentTab} />
+        </div>
+        <div className="container mx-auto max-w-md">{setTab(currentTab)}</div>
+      </main>
+    </>
+  );
+};
+
+const BingoEntries = () => {
+  const { data: entries } = trpc.useQuery(["projection.auth.getAllNew"]);
+  return (
+    <>
+      {entries?.map((entry) => (
+        <div
+          key={entry.id}
+          className="p-6 max-w-md bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 mb-4"
+        >
+          <div>
+            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+              {entry.text}
+            </h5>
+          </div>
+          <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+            {entry.description}
+          </p>
+          <button className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-green-600 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-800 mr-3">
+            Annehmen
+          </button>
+          <button className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-800 mr-3">
+            Ablehnen
+          </button>
+        </div>
+      ))}
     </>
   );
 };

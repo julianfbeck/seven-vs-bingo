@@ -15,7 +15,7 @@ export default function NewProjection() {
   const postProjection = trpc.useMutation("projection.Insert");
   return (
     <ToastProvider>
-      <div className="container mx-auto bg-slate-100 rounded-xl p-3 dark:bg-slate-900">
+      <div className="container mx-auto bg-slate-100 rounded-xl p-3 dark:bg-slate-900 max-w-2xl">
         <form>
           <div className="relative">
             <input

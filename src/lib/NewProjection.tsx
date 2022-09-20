@@ -1,26 +1,20 @@
 import { useState } from "react";
 import { trpc } from "../utils/trpc";
+import {
+  Toast,
+  ToastDescription,
+  ToastProvider,
+  ToastTitle,
+  ToastViewport,
+} from "./components/ModelStyle";
 
 export default function NewProjection() {
-  const { data: projections } = trpc.useQuery(["projection.getAll"]);
-  const ctx = trpc.useContext();
   const [newProjection, setNewProjection] = useState("");
   const [description, setDescription] = useState("");
-  const postProjection = trpc.useMutation("projection.Insert", {
-    onMutate: () => {
-      ctx.cancelQuery(["projection.getAll"]);
-
-      const optimisticUpdate = ctx.getQueryData(["projection.getAll"]);
-      if (optimisticUpdate) {
-        ctx.setQueryData(["projection.getAll"], optimisticUpdate);
-      }
-    },
-    onSettled: () => {
-      ctx.invalidateQueries(["projection.getAll"]);
-    },
-  });
+  const [showConfirmToast, setShowConfirmToast] = useState(false);
+  const postProjection = trpc.useMutation("projection.Insert");
   return (
-    <>
+    <ToastProvider>
       <div className="container mx-auto bg-slate-100 rounded-xl p-3 dark:bg-slate-900">
         <form>
           <div className="relative">
@@ -46,12 +40,13 @@ export default function NewProjection() {
             ></textarea>
           </div>
           <button
-            onClick={(e) => {
+            onClick={async (e) => {
               e.preventDefault();
-              postProjection.mutate({
+              await postProjection.mutateAsync({
                 text: newProjection,
                 description: description,
               });
+              setShowConfirmToast(true);
             }}
             disabled={
               postProjection.isLoading ||
@@ -64,17 +59,14 @@ export default function NewProjection() {
           </button>
         </form>
       </div>
-
-      {projections?.map((projection) => {
-        return (
-          <div
-            key={projection.id}
-            className="container mx-auto bg-slate-100 rounded-xl p-3 dark:bg-slate-900 mt-3 text-white text-2xl border-2 border-white"
-          >
-            {projection.text}
-          </div>
-        );
-      })}
-    </>
+      <Toast open={showConfirmToast} onOpenChange={setShowConfirmToast}>
+        <ToastTitle>Bingo-Karten Idee Abgesendet</ToastTitle>
+        <ToastDescription asChild>
+          Danke für deine Einsendung. Wir werden die Bingo Karte prüfen und
+          anschließend freischalten.
+        </ToastDescription>
+      </Toast>
+      <ToastViewport />
+    </ToastProvider>
   );
 }

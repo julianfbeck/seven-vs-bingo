@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { NextPage } from "next";
+import { GetServerSideProps, NextPage } from "next";
+import { getSession } from "next-auth/react";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import Navbar from "../lib/navbar";
@@ -11,6 +12,20 @@ type candidate = {
   isSelected: boolean;
 };
 
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession(context);
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: {},
+  };
+};
 const candidatesTemplate: candidate[] = [
   { name: "Fritz", days: 0, isSelected: false },
   { name: "Otto", days: 0, isSelected: false },

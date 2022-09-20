@@ -47,10 +47,10 @@ const buttons = [
 ];
 
 const Ranking: NextPage = () => {
-  const { data: ranking, isLoading } = trpc.useQuery(["auth.ranking.get"], {});
+  const { data: ranking } = trpc.useQuery(["auth.ranking.get"], {});
   const ctx = trpc.useContext();
   const insertRanking = trpc.useMutation("auth.ranking.Insert", {
-    onMutate: (variables) => {
+    onMutate: () => {
       ctx.cancelQuery(["projection.getAll"]);
 
       const optimisticUpdate = ctx.getQueryData(["auth.ranking.get"]);

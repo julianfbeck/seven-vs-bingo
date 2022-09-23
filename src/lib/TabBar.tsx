@@ -16,7 +16,15 @@ export const TabBar = ({ changeTab, currentTab }: TabBarProps) => {
             className={currentTab === "bingo" ? activeClass : inactiveClass}
             onClick={() => changeTab("bingo")}
           >
-            Bingo Ideen
+            Neue Ideen
+          </div>
+        </li>
+        <li className="mr-2">
+          <div
+            className={currentTab === "felder" ? activeClass : inactiveClass}
+            onClick={() => changeTab("felder")}
+          >
+            Bingo Felder
           </div>
         </li>
         <li className="mr-2">

@@ -1,8 +1,21 @@
+import { Projection } from "@prisma/client";
+import { Cross2Icon } from "@radix-ui/react-icons";
+import { styled } from "@stitches/react";
 import type { GetServerSideProps, NextPage } from "next";
 import { getSession } from "next-auth/react";
 import Head from "next/head";
 import { useState } from "react";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+  Fieldset,
+  IconButton,
+} from "../lib/components/ModalStyle";
 import Navbar from "../lib/navbar";
+import ProjectionSelect from "../lib/ProjectionSelect";
 import { TabBar } from "../lib/TabBar";
 import { trpc } from "../utils/trpc";
 
@@ -45,6 +58,8 @@ const Admin: NextPage = () => {
     switch (tab) {
       case "bingo":
         return <BingoEntries />;
+      case "felder":
+        return <OldBingoEntries />;
       case "dashboard":
         return <button />;
     }
@@ -70,7 +85,39 @@ const Admin: NextPage = () => {
 };
 
 const BingoEntries = () => {
-  const { data: entries } = trpc.useQuery(["projection.auth.getAllNew"]);
+  const { data: entries, refetch: reloadData } = trpc.useQuery([
+    "projection.auth.getAllNew",
+  ]);
+  const [editMode, setEditMode] = useState(false);
+  const ctx = trpc.useContext();
+  const approveEntry = trpc.useMutation("projection.auth.Approve", {
+    onMutate: () => {
+      ctx.cancelQuery(["projection.auth.getAllNew"]);
+
+      const optimisticUpdate = ctx.getQueryData(["projection.auth.getAllNew"]);
+      if (optimisticUpdate) {
+        ctx.setQueryData(["projection.auth.getAllNew"], optimisticUpdate);
+      }
+    },
+    onSettled: () => {
+      ctx.invalidateQueries(["projection.auth.getAllNew"]);
+    },
+  });
+
+  const deleteEntry = trpc.useMutation("projection.auth.Delete", {
+    onMutate: () => {
+      ctx.cancelQuery(["projection.auth.getAllNew"]);
+
+      const optimisticUpdate = ctx.getQueryData(["projection.auth.getAllNew"]);
+      if (optimisticUpdate) {
+        ctx.setQueryData(["projection.auth.getAllNew"], optimisticUpdate);
+      }
+    },
+    onSettled: () => {
+      ctx.invalidateQueries(["projection.auth.getAllNew"]);
+    },
+  });
+
   return (
     <>
       {entries?.map((entry) => (
@@ -86,15 +133,189 @@ const BingoEntries = () => {
           <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
             {entry.description}
           </p>
-          <button className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-green-600 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-800 mr-3">
+          <button
+            className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-green-600 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-800 mr-3"
+            onClick={async () =>
+              approveEntry.mutateAsync({
+                id: entry.id,
+              })
+            }
+          >
             Annehmen
           </button>
-          <button className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-800 mr-3">
+          <button
+            className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-800 mr-3"
+            onClick={async () =>
+              deleteEntry.mutateAsync({
+                id: entry.id,
+              })
+            }
+          >
             Ablehnen
           </button>
+          <button
+            className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-800 mr-3"
+            onClick={() => setEditMode(true)}
+          >
+            Bearbeiten
+          </button>
+          <EditModal
+            entry={entry}
+            isOpen={editMode}
+            onClose={async () => {
+              setEditMode(false);
+              await reloadData();
+            }}
+          />
         </div>
       ))}
     </>
+  );
+};
+
+const OldBingoEntries = () => {
+  const [editMode, setEditMode] = useState(false);
+  const { data: entries, refetch: reloadData } = trpc.useQuery([
+    "projection.getAll",
+  ]);
+
+  const ctx = trpc.useContext();
+  const hasBecomeTrue = trpc.useMutation("projection.auth.HasBecomeTrue", {
+    onMutate: () => {
+      ctx.cancelQuery(["projection.getAll"]);
+
+      const optimisticUpdate = ctx.getQueryData(["projection.getAll"]);
+      if (optimisticUpdate) {
+        ctx.setQueryData(["projection.getAll"], optimisticUpdate);
+      }
+    },
+    onSettled: () => {
+      ctx.invalidateQueries(["projection.getAll"]);
+    },
+  });
+
+  return (
+    <>
+      {entries?.map((entry) => (
+        <div
+          key={entry.id}
+          className={
+            "p-6 max-w-md bg-white rounded-lg border  shadow-md dark:bg-gray-800 border-gray-700 mb-4" +
+            (entry.hasBecomeTrue ? " border-green-600" : " border-gray-700")
+          }
+        >
+          <div>
+            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+              {entry.text}
+            </h5>
+          </div>
+          <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+            {entry.description}
+          </p>
+          <button
+            className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-800 mr-3 disabled:bg-red-900 disabled:opacity-50"
+            disabled={entry.hasBecomeTrue}
+            onClick={async () => {
+              await hasBecomeTrue.mutateAsync({
+                id: entry.id,
+              });
+            }}
+          >
+            Ist eingetroffen
+          </button>
+          <button
+            className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-800 mr-3 disabled:bg-red-900 disabled:opacity-50"
+            onClick={() => setEditMode(true)}
+            disabled={entry.hasBecomeTrue}
+          >
+            Bearbeiten
+          </button>
+          <EditModal
+            entry={entry}
+            isOpen={editMode}
+            onClose={async () => {
+              setEditMode(false);
+              await reloadData();
+            }}
+          />
+        </div>
+      ))}
+    </>
+  );
+};
+
+interface EditModalProps {
+  entry: Projection;
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const Flex = styled("div", { display: "flex" });
+
+const EditModal = ({ isOpen, entry, onClose }: EditModalProps) => {
+  const [newProjection, setNewProjection] = useState(entry.text);
+  const [description, setDescription] = useState(entry.description);
+  const editEntry = trpc.useMutation("projection.auth.Update");
+  return (
+    <Dialog open={isOpen}>
+      <DialogContent>
+        <DialogTitle>Bingo Karte bearbeiten</DialogTitle>
+        <DialogDescription>
+          Bearbeite die Karte und klicke auf Speichern, um die Änderungen zu
+          übernehmen.
+        </DialogDescription>
+        <div className="relative">
+          <input
+            type="search"
+            id="default-search"
+            className="block p-4 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Bingo Vorschlag (kurzer Titel)"
+            value={newProjection}
+            onChange={(e) => setNewProjection(e.target.value)}
+            maxLength={50}
+          />
+          <div className="absolute right-2 bottom-32 text-white">
+            {newProjection.length}/{50}
+          </div>
+
+          <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"></label>
+          <textarea
+            id="message"
+            rows={4}
+            className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Genauere Beschreibung über die Bingo Karte"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          ></textarea>
+        </div>
+        <Flex css={{ marginTop: 25, justifyContent: "flex-end" }}>
+          <DialogClose asChild>
+            <button
+              disabled={
+                entry.text === newProjection &&
+                entry.description === description
+              }
+              className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-800 mr-3"
+              onClick={async () => {
+                await editEntry.mutateAsync({
+                  id: entry.id,
+                  text: newProjection,
+                  description: description,
+                });
+                onClose();
+              }}
+            >
+              Speichern
+            </button>
+          </DialogClose>
+        </Flex>
+        <DialogClose onClick={onClose}>
+          <IconButton aria-label="Close">
+            <Cross2Icon />
+          </IconButton>
+        </DialogClose>
+      </DialogContent>
+    </Dialog>
   );
 };
 

@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import { styled, keyframes } from "@stitches/react";
-import { blackA, mauve } from "@radix-ui/colors";
+import { blackA, mauve, violet } from "@radix-ui/colors";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 
 const overlayShow = keyframes({
@@ -68,6 +68,31 @@ const StyledDescription = styled(DialogPrimitive.Description, {
   lineHeight: 1.5,
 });
 
+export const IconButton = styled("button", {
+  all: "unset",
+  fontFamily: "inherit",
+  borderRadius: "100%",
+  height: 25,
+  width: 25,
+  display: "inline-flex",
+  alignItems: "center",
+  justifyContent: "center",
+  color: violet.violet11,
+  position: "absolute",
+  top: 10,
+  right: 10,
+
+  "&:hover": { backgroundColor: violet.violet4 },
+  "&:focus": { boxShadow: `0 0 0 2px ${violet.violet7}` },
+});
+
+export const Fieldset = styled("fieldset", {
+  all: "unset",
+  display: "flex",
+  gap: 20,
+  alignItems: "center",
+  marginBottom: 15,
+});
 // Exports
 export const Dialog = DialogPrimitive.Root;
 export const DialogTrigger = DialogPrimitive.Trigger;

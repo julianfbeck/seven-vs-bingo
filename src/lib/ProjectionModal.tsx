@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { styled } from "@stitches/react";
-import { violet, whiteA } from "@radix-ui/colors";
+import { whiteA } from "@radix-ui/colors";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import {
   Dialog,
@@ -8,38 +8,14 @@ import {
   DialogContent,
   DialogDescription,
   DialogTitle,
+  Fieldset,
+  IconButton,
 } from "./components/ModalStyle";
 import ProjectionSelect from "./ProjectionSelect";
 import { trpc } from "../utils/trpc";
 
 // Your app...
 const Flex = styled("div", { display: "flex" });
-
-const IconButton = styled("button", {
-  all: "unset",
-  fontFamily: "inherit",
-  borderRadius: "100%",
-  height: 25,
-  width: 25,
-  display: "inline-flex",
-  alignItems: "center",
-  justifyContent: "center",
-  color: violet.violet11,
-  position: "absolute",
-  top: 10,
-  right: 10,
-
-  "&:hover": { backgroundColor: violet.violet4 },
-  "&:focus": { boxShadow: `0 0 0 2px ${violet.violet7}` },
-});
-
-const Fieldset = styled("fieldset", {
-  all: "unset",
-  display: "flex",
-  gap: 20,
-  alignItems: "center",
-  marginBottom: 15,
-});
 
 const Label = styled("label", {
   fontSize: 15,

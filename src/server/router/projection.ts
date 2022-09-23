@@ -21,6 +21,9 @@ export const projectionRouter = createRouter()
       if (input.text.length > 50) {
         throw new Error("Text too long");
       }
+      if (input.text.length > 300) {
+        throw new Error("Text too long");
+      }
       try {
         await ctx.prisma.projection.create({
           data: {
@@ -53,7 +56,7 @@ export const projectionRouter = createRouter()
       });
     },
   })
-  .mutation("Approve", {
+  .mutation("auth.Approve", {
     input: z.object({
       id: z.string(),
     }),
@@ -72,7 +75,7 @@ export const projectionRouter = createRouter()
       }
     },
   })
-  .mutation("Delete", {
+  .mutation("auth.Delete", {
     input: z.object({
       id: z.string(),
     }),
@@ -81,6 +84,53 @@ export const projectionRouter = createRouter()
         await ctx.prisma.projection.delete({
           where: {
             id: input.id,
+          },
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  })
+  .mutation("auth.Update", {
+    input: z.object({
+      id: z.string(),
+      text: z.string(),
+      description: z.string(),
+    }),
+    async resolve({ ctx, input }) {
+      if (input.text.length > 50) {
+        throw new Error("Text too long");
+      }
+      if (input.text.length > 300) {
+        throw new Error("Text too long");
+      }
+      try {
+        await ctx.prisma.projection.update({
+          where: {
+            id: input.id,
+          },
+          data: {
+            text: input.text,
+            description: input.description,
+          },
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  })
+  .mutation("auth.HasBecomeTrue", {
+    input: z.object({
+      id: z.string(),
+    }),
+    async resolve({ ctx, input }) {
+      try {
+        await ctx.prisma.projection.update({
+          where: {
+            id: input.id,
+          },
+          data: {
+            hasBecomeTrue: true,
           },
         });
       } catch (error) {

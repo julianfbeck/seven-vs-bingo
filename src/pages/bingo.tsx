@@ -21,7 +21,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   };
 };
 const Bingo: NextPage = () => {
-  const { data: entries, isLoading } = trpc.useQuery(["auth.bingoEntriesget"]);
+  const { data: entries, isLoading, refetch } = trpc.useQuery(["auth.bingoEntriesget"]);
   const fields = [
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
     22, 23, 24, 25,
@@ -49,6 +49,7 @@ const Bingo: NextPage = () => {
                     key={field}
                     fieldNumber={field}
                     projection={getProjection(field)}
+                    onUpdate={refetch}
                   />
                 ))}
             </div>

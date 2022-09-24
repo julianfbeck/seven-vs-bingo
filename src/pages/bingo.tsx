@@ -45,6 +45,11 @@ const Bingo: NextPage = () => {
       </Head>
 
       <main className="min-h-screen bg-gradient-to-b from-black to-slate-900">
+        <div className="py-3 px-4 mx-auto max-w-screen-lg lg:py-10 lg:px-12">
+          <h1 className="text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+            Dein Board
+          </h1>
+        </div>
         <div className="max-w-screen-sm mx-auto  container p-2">
           <div className="mx-auto  container ">
             <div className="grid grid-cols-5 gap-2 gap-y-0.5">
@@ -60,7 +65,7 @@ const Bingo: NextPage = () => {
             </div>
           </div>
         </div>
-        <Points />
+        {points && entries && <Points entries={entries} points={points} />}
       </main>
     </>
   );

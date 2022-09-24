@@ -14,6 +14,7 @@ export const serverSchema = z.object({
   DISCORD_CLIENT_SECRET: z.string(),
   TWITCH_CLIENT_ID: z.string(),
   TWITCH_CLIENT_SECRET: z.string(),
+
 });
 
 /**

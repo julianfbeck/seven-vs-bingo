@@ -46,9 +46,6 @@ export const projectionRouter = createRouter()
   })
   .query("auth.getAllNew", {
     async resolve({ ctx }) {
-      if (!ctx.session?.user?.id) {
-        throw new TRPCError({ code: "UNAUTHORIZED" });
-      }
       return await ctx.prisma.projection.findMany({
         where: {
           isApproved: false,
@@ -136,5 +133,28 @@ export const projectionRouter = createRouter()
       } catch (error) {
         console.log(error);
       }
+    },
+  })
+  .query("getAllModal", {
+    async resolve({ ctx }) {
+      if (!ctx.session?.user?.id) {
+        throw new TRPCError({ code: "UNAUTHORIZED" });
+      }
+      const response = await ctx.prisma.projection.findMany({
+        where: {
+          isApproved: true,
+          hasBecomeTrue: false,
+        },
+        include: {
+          bingoEntries: true,
+        },
+      });
+      //remove all entries that are already in the users bingo
+      const filteredResponse = response.filter((projection) => {
+        return projection.bingoEntries.every((bingoEntry) => {
+          return bingoEntry.userId !== ctx.session?.user?.id;
+        });
+      });
+      return filteredResponse;
     },
   });

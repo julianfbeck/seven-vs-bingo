@@ -38,21 +38,21 @@ const SelectProjectionModal: React.FC<SelectProjectionModalProps> = ({
   defaultProjectionId,
   onClose,
 }) => {
-  const { data: projections } = trpc.useQuery(["projection.getAll"]);
+  const { data: projections } = trpc.useQuery(["projection.getAllModal"]);
   const ctx = trpc.useContext();
   const [selectedProjectionId, setSelectedProjectionID] =
     useState(defaultProjectionId);
   const postBingoInsert = trpc.useMutation("auth.bingoEntriesInsert", {
     onMutate: () => {
-      ctx.cancelQuery(["projection.getAll"]);
+      ctx.cancelQuery(["projection.getAllModal"]);
 
-      const optimisticUpdate = ctx.getQueryData(["projection.getAll"]);
+      const optimisticUpdate = ctx.getQueryData(["projection.getAllModal"]);
       if (optimisticUpdate) {
-        ctx.setQueryData(["projection.getAll"], optimisticUpdate);
+        ctx.setQueryData(["projection.getAllModal"], optimisticUpdate);
       }
     },
     onSettled: () => {
-      ctx.invalidateQueries(["projection.getAll"]);
+      ctx.invalidateQueries(["projection.getAllModal"]);
     },
   });
   return (
@@ -63,7 +63,7 @@ const SelectProjectionModal: React.FC<SelectProjectionModalProps> = ({
           Wähle deine Vorhersage für die Bingokarte {fieldNumber} aus.
         </DialogDescription>
         <Fieldset>
-          <Label htmlFor="username">Vorhersage {fieldNumber}</Label>
+          <Label htmlFor="username">Vorhersage</Label>
           <ProjectionSelect
             projections={projections || []}
             defaulValue={defaultProjectionId}

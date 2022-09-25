@@ -47,6 +47,8 @@ export default function NewProjection() {
                 description: description,
               });
               setShowConfirmToast(true);
+              setNewProjection("");
+              setDescription("");
             }}
             disabled={
               postProjection.isLoading ||
@@ -61,7 +63,7 @@ export default function NewProjection() {
       </div>
       <Toast open={showConfirmToast} onOpenChange={setShowConfirmToast}>
         <ToastTitle>Bingo-Karten Idee Abgesendet</ToastTitle>
-        <ToastDescription asChild>
+        <ToastDescription>
           Danke für deine Einsendung. Wir werden die Bingo Karte prüfen und
           anschließend freischalten.
         </ToastDescription>

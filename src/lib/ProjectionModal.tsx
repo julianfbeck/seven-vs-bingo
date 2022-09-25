@@ -57,6 +57,11 @@ const SelectProjectionModal: React.FC<SelectProjectionModalProps> = ({
       ctx.invalidateQueries(["projection.getAllModal"]);
     },
   });
+
+
+
+
+  
   useEffect(() => {
     if (projections && projections?.length > 0 && defaultProjection) {
       setModalProjections([...projections, defaultProjection]);

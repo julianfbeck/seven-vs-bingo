@@ -2,7 +2,7 @@
 import { Fragment, useEffect, useState } from "react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Icon } from "@iconify/react";
 import { useRouter } from "next/router";
 import Image from "next/image";

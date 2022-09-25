@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Navbar from "../lib/navbar";
 import Projections from "../lib/NewProjection";
+import { ProjectionList } from "../lib/ProjectionList";
 
 const Home: NextPage = () => {
   return (
@@ -27,6 +28,15 @@ const Home: NextPage = () => {
         <div className="p-3">
           <Projections />
         </div>
+        <div className="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-10 lg:px-12">
+          <h1 className="my-8 text-2xl font-extrabold tracking-tight leading-none text-gray-900 md:text-3xl lg:text-3xl dark:text-white">
+            Aktuelle Bingo Karten
+          </h1>
+        </div>
+        <div className="container mx-auto max-w-md">
+          <ProjectionList />
+        </div>
+        <div className="mt-96">{"."}</div>
       </main>
     </>
   );

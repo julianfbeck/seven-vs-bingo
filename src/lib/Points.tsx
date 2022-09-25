@@ -46,12 +46,12 @@ const Points = ({ points, entries }: PointsProps) => {
                       </div>
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-center lg:table-cell">
+                  <td className="pr-6 py-4 whitespace-nowrap text-right lg:table-cell">
                     <div className="text-sm leading-5 text-gray-200">
                       Richtiges Field
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-white text-lg font-bold text-right flex-none ">
+                  <td className="pr-5 py-4 whitespace-nowrap text-white text-lg font-bold text-right flex-none ">
                     + {Constants.PointsPerCorrectEntry}
                   </td>
                 </tr>
@@ -69,18 +69,18 @@ const Points = ({ points, entries }: PointsProps) => {
                   <td className="px-6 py-4 whitespace-no-wrap ">
                     <div className="flex items-center">
                       <div className="ml-3">
-                        <div className="text-lg leading-5 font-medium text-gray-100">
+                        <div className="text-lg leading-5 font-medium text-left text-gray-100">
                           Bingo in den Feldern {row.map((field) => field + " ")}
                         </div>
                       </div>
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-center lg:table-cell">
+                  <td className="pr-6 py-4 whitespace-nowrap text-right lg:table-cell">
                     <div className="text-sm leading-5 text-gray-200">
                       Bingo!
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-white text-lg font-bold text-right flex-none ">
+                  <td className="pr-5 py-4 whitespace-nowrap text-white text-lg font-bold text-right flex-none ">
                     + {Constants.PointsPerCorrectRow}
                   </td>
                 </tr>

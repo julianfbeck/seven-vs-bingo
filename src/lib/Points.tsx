@@ -90,7 +90,7 @@ const Points = ({ points, entries }: PointsProps) => {
         )}
         <table className="w-full">
           <tbody>
-            <tr className=" bg-green-600 hover:cursor-pointer hover:bg-gray-700 transform duration-150 last:border-0">
+            <tr className=" bg-green-600 border border-3 border-green-800 last:border-0">
               <td className="px-6 py-4 whitespace-no-wrap ">
                 <div className="flex items-center">
                   <div className="ml-3">

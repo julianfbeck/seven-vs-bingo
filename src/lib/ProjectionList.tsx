@@ -1,8 +1,7 @@
-import { useState } from "react";
 import { trpc } from "../utils/trpc";
 
 export const ProjectionList = () => {
-  const { data: entries } = trpc.useQuery(["projection.auth.getAllNew"]);
+  const { data: entries } = trpc.useQuery(["projection.getAll"]);
 
   return (
     <>

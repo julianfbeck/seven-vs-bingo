@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import { styled, keyframes } from "@stitches/react";
-import { blackA, mauve, violet } from "@radix-ui/colors";
+import { blackA, blue, mauve, violet } from "@radix-ui/colors";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 
 const overlayShow = keyframes({
@@ -34,7 +34,7 @@ const StyledContent = styled(DialogPrimitive.Content, {
   width: "90vw",
   maxWidth: "450px",
   maxHeight: "85vh",
-  padding: 25,
+  padding: 20,
   "@media (prefers-reduced-motion: no-preference)": {
     animation: `${contentShow} 150ms cubic-bezier(0.16, 1, 0.3, 1)`,
   },
@@ -77,7 +77,7 @@ export const IconButton = styled("button", {
   display: "inline-flex",
   alignItems: "center",
   justifyContent: "center",
-  color: violet.violet11,
+  color: blue.blue11,
   position: "absolute",
   top: 10,
   right: 10,
@@ -88,6 +88,7 @@ export const IconButton = styled("button", {
 
 export const Fieldset = styled("fieldset", {
   all: "unset",
+  justifyContent: "flex-start",
   display: "flex",
   gap: 20,
   alignItems: "center",

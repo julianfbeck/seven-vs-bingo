@@ -11,11 +11,9 @@ import {
   DialogContent,
   DialogDescription,
   DialogTitle,
-  Fieldset,
   IconButton,
 } from "../lib/components/ModalStyle";
 import Navbar from "../lib/navbar";
-import ProjectionSelect from "../lib/ProjectionSelect";
 import { TabBar } from "../lib/TabBar";
 import { trpc } from "../utils/trpc";
 

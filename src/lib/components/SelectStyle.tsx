@@ -1,25 +1,27 @@
 import React, { ReactNode } from "react";
 import { styled } from "@stitches/react";
-import { violet, mauve, blackA } from "@radix-ui/colors";
+import { violet, mauve, blackA, blue } from "@radix-ui/colors";
 import * as SelectPrimitive from "@radix-ui/react-select";
 
 const StyledTrigger = styled(SelectPrimitive.SelectTrigger, {
   all: "unset",
   display: "inline-flex",
   alignItems: "center",
-  justifyContent: "center",
+  justifyContent: "left",
   borderRadius: 4,
   padding: "0 15px",
   fontSize: 13,
+  fontWeight: 500,
   lineHeight: 1,
   height: 35,
+  width: "100%",
   gap: 5,
   backgroundColor: "white",
   color: violet.violet11,
   boxShadow: `0 2px 10px ${blackA.blackA7}`,
   "&:hover": { backgroundColor: mauve.mauve3 },
   "&:focus": { boxShadow: `0 0 0 2px black` },
-  "&[data-placeholder]": { color: violet.violet9 },
+  "&[data-placeholder]": { color: blue.blue10 },
 });
 
 const StyledIcon = styled(SelectPrimitive.SelectIcon, {
@@ -75,8 +77,9 @@ const StyledItem = styled(SelectPrimitive.Item, {
 
 const StyledLabel = styled(SelectPrimitive.Label, {
   padding: "0 25px",
-  fontSize: 12,
+  fontSize: 13,
   lineHeight: "25px",
+  textAlign: "left",
   color: mauve.mauve11,
 });
 

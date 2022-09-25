@@ -17,7 +17,7 @@ import { Projection } from "@prisma/client";
 
 interface ProjectionSelectProps {
   projections: Projection[];
-  defaulValue?: string;
+  defaulValue?: Projection
   onSelect: (projection: string) => void;
 }
 
@@ -27,7 +27,7 @@ export const ProjectionSelect: React.FC<ProjectionSelectProps> = ({
   onSelect,
 }) => {
   return (
-    <Select onValueChange={onSelect} defaultValue={defaulValue}>
+    <Select onValueChange={onSelect} defaultValue={defaulValue?.id}>
       <SelectTrigger aria-label="Vorhersagen">
         <SelectValue placeholder="Auswählen..." />
       </SelectTrigger>

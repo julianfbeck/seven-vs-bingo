@@ -1,3 +1,4 @@
+import { Projection } from '@prisma/client';
 import { createRouter } from "./context";
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
@@ -155,6 +156,7 @@ export const projectionRouter = createRouter()
           return bingoEntry.userId !== ctx.session?.user?.id;
         });
       });
-      return filteredResponse;
+
+      return filteredResponse as Projection[];
     },
   });

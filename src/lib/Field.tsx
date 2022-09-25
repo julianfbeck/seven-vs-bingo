@@ -32,7 +32,7 @@ export const Field: React.FC<TextProps> = ({
       <SelectProjectionModal
         fieldNumber={fieldNumber}
         isOpen={isEditMode}
-        defaultProjectionId={projection?.id}
+        defaultProjection={projection}
         onClose={async () => {
           editMode(false);
           if (onUpdate) {

@@ -26,15 +26,15 @@ const Points = ({ points, entries }: PointsProps) => {
           Deine Punkte
         </h1>
         <table className="w-full">
-          <tbody className="border-slate-500 border-b bg-gray-800">
+          <tbody className="border-slate-500 border-b bg-gray-800 ">
             {entries
               .filter((filter) => filter.projection.hasBecomeTrue)
               .map((entries) => (
                 <tr
                   key={entries.id}
-                  className="hover:cursor-pointer hover:bg-gray-700 last:border-0"
+                  className="hover:cursor-pointer hover:bg-gray-700 border-b-2 border-gray-900"
                 >
-                  <td className="px-6 py-4 whitespace-no-wrap roun">
+                  <td className="px-6 py-2 whitespace-no-wrap round">
                     <div className="flex items-center">
                       <div className="ml-3">
                         <div className="text-sm leading-5 font-medium text-gray-100">
@@ -64,7 +64,7 @@ const Points = ({ points, entries }: PointsProps) => {
               {points.map((row, i) => (
                 <tr
                   key={i}
-                  className=" bg-gray-800 hover:cursor-pointer hover:bg-gray-700 transform duration-150 last:border-0"
+                  className=" bg-gradient-to-r from-green-400 to-blue-500 hover:cursor-pointer hover:bg-gray-700 transform duration-150 last:border-0"
                 >
                   <td className="px-6 py-4 whitespace-no-wrap ">
                     <div className="flex items-center">
@@ -90,7 +90,7 @@ const Points = ({ points, entries }: PointsProps) => {
         )}
         <table className="w-full">
           <tbody>
-            <tr className=" bg-green-600 border border-3 border-green-800 last:border-0">
+            <tr className=" bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 last:border-0">
               <td className="px-6 py-4 whitespace-no-wrap ">
                 <div className="flex items-center">
                   <div className="ml-3">

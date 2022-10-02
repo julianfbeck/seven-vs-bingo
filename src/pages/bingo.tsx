@@ -1,6 +1,7 @@
 import type { GetServerSideProps, NextPage } from "next";
 import { getSession } from "next-auth/react";
 import Head from "next/head";
+import { CreateBoard } from "../lib/createBoard";
 import { Field } from "../lib/Field";
 import Navbar from "../lib/navbar";
 import Points from "../lib/Points";
@@ -50,6 +51,7 @@ const Bingo: NextPage = () => {
             Dein Board
           </h1>
         </div>
+        <CreateBoard />
         <div className="max-w-screen-sm mx-auto  container p-2">
           <div className="mx-auto  container ">
             <div className="grid grid-cols-5 gap-2 gap-y-0.5">

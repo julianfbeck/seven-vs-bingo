@@ -30,6 +30,7 @@ export default function Navbar() {
       }
     });
     setNavigation(updatedNavigation);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <Disclosure as="nav" className="bg-gray-800">
@@ -49,18 +50,7 @@ export default function Navbar() {
                 </Disclosure.Button>
               </div>
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-                <div className="flex flex-shrink-0 items-center">
-                  <img
-                    className="block h-8 w-auto lg:hidden"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                    alt="Your Company"
-                  />
-                  <img
-                    className="hidden h-8 w-auto lg:block"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                    alt="Your Company"
-                  />
-                </div>
+                <div className="flex flex-shrink-0 items-center"></div>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
@@ -83,18 +73,32 @@ export default function Navbar() {
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 {status == "unauthenticated" && (
-                  <button
-                    type="button"
-                    className="text-white bg-[#874af6] hover:bg-[#874af6]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#3b5998]/55 mr-2"
-                    onClick={() => signIn("twitch")}
-                  >
-                    Anmelden
-                    <Icon
-                      className="ml-2 ml-1 w-4 h-4"
-                      icon="akar-icons:twitch-fill"
-                      color="white"
-                    />
-                  </button>
+                  <div>
+                    <button
+                      type="button"
+                      className="text-white bg-[#874af6] hover:bg-[#874af6]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#3b5998]/55 mr-2"
+                      onClick={() => signIn("twitch")}
+                    >
+                      Anmelden
+                      <Icon
+                        className="ml-2 w-4 h-4"
+                        icon="akar-icons:twitch-fill"
+                        color="white"
+                      />
+                    </button>
+                    <button
+                      type="button"
+                      className="text-white bg-[#635def] hover:bg-[#635def]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#3b5998]/55 mr-2"
+                      onClick={() => signIn("discord")}
+                    >
+                      Anmelden
+                      <Icon
+                        className="ml-2  w-4 h-4"
+                        icon="akar-icons:discord-fill"
+                        color="white"
+                      />
+                    </button>
+                  </div>
                 )}
                 {/* Profile dropdown */}
                 {status == "authenticated" && (

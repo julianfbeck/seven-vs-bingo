@@ -4,6 +4,7 @@ import Head from "next/head";
 import Board from "../lib/Board";
 import { CreateBoard } from "../lib/createBoard";
 import Navbar from "../lib/navbar";
+import { prisma } from "../server/db/client";
 
 interface BingoPageProps {
   count: number | undefined;
@@ -20,7 +21,7 @@ export const getServerSideProps: GetServerSideProps<BingoPageProps> = async (
       },
     };
   }
-  let count = await prisma?.bingoEntry.count({
+  let count = await prisma.bingoEntry.count({
     where: {
       userId: session?.user?.id,
     },
@@ -28,7 +29,7 @@ export const getServerSideProps: GetServerSideProps<BingoPageProps> = async (
 
   //reset board for undefined state
   if (count !== 0 && count !== 25) {
-    await prisma?.bingoEntry.deleteMany({
+    await prisma.bingoEntry.deleteMany({
       where: {
         userId: session?.user?.id,
       },

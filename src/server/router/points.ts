@@ -1,5 +1,6 @@
 import { createRouter } from "./context";
 import { TRPCError } from "@trpc/server";
+import { Constants } from "../../utils/points";
 
 const bingoWinningEntries = [
   //rows
@@ -20,6 +21,17 @@ const bingoWinningEntries = [
 ];
 
 export const pointsRouter = createRouter()
+  .query("highscore", {
+    async resolve({ ctx }) {
+      return await ctx.prisma.score.findMany({
+        orderBy: {
+          score: "desc",
+        },
+        take: 10,
+      });
+    },
+  })
+
   .middleware(async ({ ctx, next }) => {
     // Any queries or mutations after this middleware will
     // raise an error unless there is a current session
@@ -42,7 +54,9 @@ export const pointsRouter = createRouter()
         },
       });
       // get positions that win
-      const winningPositions = entries.filter((e) => (e.projection.hasBecomeTrue)).map((entry) => entry.position);
+      const winningPositions = entries
+        .filter((e) => e.projection.hasBecomeTrue)
+        .map((entry) => entry.position);
 
       // check if any of the winning positions are in the winning entries
       return bingoWinningEntries.filter((winningEntry) => {
@@ -50,5 +64,61 @@ export const pointsRouter = createRouter()
           winningPositions.includes(position)
         );
       });
+    },
+  })
+  .mutation(".recalculate", {
+    async resolve({ ctx }) {
+      if (!ctx.session?.user?.id) {
+        throw new TRPCError({ code: "UNAUTHORIZED" });
+      }
+      //check if user is admin
+      const user = await ctx.prisma.user.findUnique({
+        where: {
+          id: ctx.session.user.id,
+        },
+      });
+      if (!user?.role?.includes("admin")) {
+        throw new TRPCError({ code: "UNAUTHORIZED" });
+      }
+      // get all users
+      const users = await ctx.prisma.user.findMany();
+      //iterate over users
+      for (const user of users) {
+        const entries = await ctx.prisma.bingoEntry.findMany({
+          where: {
+            userId: user.id,
+          },
+          include: {
+            projection: true,
+          },
+        });
+        // get positions that win
+        const winningPositions = entries
+          .filter((e) => e.projection.hasBecomeTrue)
+          .map((entry) => entry.position);
+        const bingos = bingoWinningEntries.filter((winningEntry) => {
+          return winningEntry.every((position) =>
+            winningPositions.includes(position)
+          );
+        });
+        const points =
+          Constants.PointsPerCorrectEntry * winningPositions.length;
+        const bingoPoints = Constants.PointsPerCorrectRow * bingos.length;
+        await ctx.prisma.score.upsert({
+          where: {
+            userId: user.id,
+          },
+          create: {
+            userId: user.id,
+            score: points + bingoPoints,
+            userName: user.name ?? "Unknown User",
+          },
+          update: {
+            score: {
+              increment: points + bingoPoints,
+            },
+          },
+        });
+      }
     },
   });

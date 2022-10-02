@@ -136,6 +136,7 @@ const OldBingoEntries = () => {
   ]);
 
   const ctx = trpc.useContext();
+  const reCalculatePoints = trpc.useMutation("auth.points.recalculate");
   const hasBecomeTrue = trpc.useMutation("projection.auth.HasBecomeTrue", {
     onMutate: () => {
       ctx.cancelQuery(["projection.getAll"]);
@@ -152,6 +153,14 @@ const OldBingoEntries = () => {
 
   return (
     <>
+      <button
+        className="bg-slate-800 text-white p-2 rounded-md"
+        onClick={async () => {
+          await reCalculatePoints.mutateAsync();
+        }}
+      >
+        test
+      </button>
       {entries?.map((entry) => (
         <AdminProjectionEntry
           key={entry.id}

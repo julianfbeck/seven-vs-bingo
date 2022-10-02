@@ -23,6 +23,7 @@ export default function NewProjection() {
               id="default-search"
               className="block p-4 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Bingo Vorschlag (kurzer Titel)"
+              value={newProjection}
               onChange={(e) => setNewProjection(e.target.value)}
               maxLength={50}
             />
@@ -36,6 +37,7 @@ export default function NewProjection() {
               rows={4}
               className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Genauere Beschreibung über die Bingo Karte"
+              value={description}
               onChange={(e) => setDescription(e.target.value)}
             ></textarea>
           </div>
@@ -46,9 +48,9 @@ export default function NewProjection() {
                 text: newProjection,
                 description: description,
               });
-              setShowConfirmToast(true);
               setNewProjection("");
               setDescription("");
+              setShowConfirmToast(true);
             }}
             disabled={
               postProjection.isLoading ||

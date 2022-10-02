@@ -5,14 +5,9 @@ import SelectProjectionModal from "./ProjectionModal";
 interface TextProps {
   fieldNumber: number;
   projection?: Projection;
-  onUpdate?: () => void;
 }
 
-export const Field: React.FC<TextProps> = ({
-  fieldNumber,
-  projection,
-  onUpdate,
-}) => {
+export const Field: React.FC<TextProps> = ({ fieldNumber, projection }) => {
   const [isEditMode, editMode] = useState(false);
 
   function CustomButton() {
@@ -33,11 +28,8 @@ export const Field: React.FC<TextProps> = ({
         fieldNumber={fieldNumber}
         isOpen={isEditMode}
         defaultProjection={projection}
-        onClose={async () => {
+        onClose={() => {
           editMode(false);
-          if (onUpdate) {
-            await onUpdate();
-          }
         }}
       ></SelectProjectionModal>
     </>

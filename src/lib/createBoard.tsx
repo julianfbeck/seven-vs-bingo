@@ -5,6 +5,9 @@ import Table from "./Table";
 
 export const CreateBoard = () => {
   const { data: entries } = trpc.useQuery(["projection.getAll"]);
+  const ctx = trpc.useContext();
+  const postBingoInsert = trpc.useMutation("auth.bingoEntriesGenerate");
+
   const [numberSelectedProjections, setNumberSelectedProjections] = useState(0);
   const [selectedProjections, setSelectedProjections] = useState<
     Map<string, boolean>
@@ -22,6 +25,15 @@ export const CreateBoard = () => {
     const selectedEntries = randomEntries?.slice(0, 25);
     selectedEntries?.forEach((entry) => map.set(entry.id, true));
     setSelectedProjections(map);
+  };
+
+  const selectBingoEntries = async () => {
+    const selectedEntries = entries?.filter((entry) =>
+      selectedProjections.get(entry.id)
+    );
+    await postBingoInsert.mutateAsync({
+      projections: selectedEntries?.map((entry) => entry.id) || [],
+    });
   };
 
   useEffect(() => {
@@ -64,6 +76,7 @@ export const CreateBoard = () => {
         <button
           className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-green-600 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-800 mr-3 disabled:opacity-50 disabled:cursor-not-allowed"
           disabled={numberSelectedProjections != 25}
+          onClick={selectBingoEntries}
         >
           {numberSelectedProjections}/25 Auswählen
         </button>

@@ -52,7 +52,7 @@ const Bingo: NextPage = () => {
           </h1>
         </div>
         <CreateBoard />
-        <div className="max-w-screen-sm mx-auto  container p-2">
+        <div className="max-w-screen-sm mx-auto  container p-2^">
           <div className="mx-auto  container ">
             <div className="grid grid-cols-5 gap-2 gap-y-0.5">
               {!isLoading &&

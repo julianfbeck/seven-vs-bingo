@@ -37,9 +37,12 @@ export const pointsRouter = createRouter()
         where: {
           userId: ctx.session.user.id,
         },
+        include: {
+          projection: true,
+        },
       });
       // get positions that win
-      const winningPositions = entries.map((entry) => entry.position);
+      const winningPositions = entries.filter((e) => (e.projection.hasBecomeTrue)).map((entry) => entry.position);
 
       // check if any of the winning positions are in the winning entries
       return bingoWinningEntries.filter((winningEntry) => {

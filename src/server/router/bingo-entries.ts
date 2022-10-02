@@ -1,3 +1,4 @@
+import { prisma } from "./../db/client";
 import { createRouter } from "./context";
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
@@ -26,32 +27,34 @@ export const bingoEntriesRouter = createRouter()
       });
     },
   })
-  .mutation("Insert", {
+  .mutation("Generate", {
     input: z.object({
-      position: z.number(),
-      projectionId: z.string(),
+      projections: z.array(z.string()),
     }),
     async resolve({ ctx, input }) {
       console.log("input", input);
-      if (!ctx.session?.user?.id) {
-        throw new TRPCError({ code: "UNAUTHORIZED" });
+      if (input.projections.length !== 25) {
+        throw new TRPCError({ code: "BAD_REQUEST" });
       }
       try {
-        await ctx.prisma.bingoEntry.upsert({
+        //shuffle the array
+        const shuffled = input.projections.sort(() => 0.5 - Math.random());
+
+        await ctx.prisma.bingoEntry.deleteMany({
           where: {
-            position_userId: {
-              position: input.position,
-              userId: ctx.session.user.id,
-            },
-          },
-          create: {
             userId: ctx.session?.user?.id,
-            position: input.position,
-            projectionId: input.projectionId,
           },
-          update: {
-            projectionId: input.projectionId,
-          },
+        });
+
+        if (!ctx.session?.user?.id) {
+          throw new TRPCError({ code: "UNAUTHORIZED" });
+        }
+        await ctx.prisma.bingoEntry.createMany({
+          data: shuffled.map((projectionId, index) => ({
+            userId: ctx.session?.user?.id || "",
+            position: index + 1,
+            projectionId,
+          })),
         });
       } catch (error) {
         console.log("error", error);

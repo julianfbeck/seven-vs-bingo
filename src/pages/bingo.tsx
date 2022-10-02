@@ -1,13 +1,16 @@
 import type { GetServerSideProps, NextPage } from "next";
 import { getSession } from "next-auth/react";
 import Head from "next/head";
+import Board from "../lib/Board";
 import { CreateBoard } from "../lib/createBoard";
-import { Field } from "../lib/Field";
 import Navbar from "../lib/navbar";
-import Points from "../lib/Points";
-import { trpc } from "../utils/trpc";
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+interface BingoPageProps {
+  count: number | undefined;
+}
+export const getServerSideProps: GetServerSideProps<BingoPageProps> = async (
+  context
+) => {
   const session = await getSession(context);
   if (!session) {
     return {
@@ -17,25 +20,39 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       },
     };
   }
+  let count = await prisma?.bingoEntry.count({
+    where: {
+      userId: session?.user?.id,
+    },
+  });
+
+  //reset board for undefined state
+  if (count !== 0 && count !== 25) {
+    await prisma?.bingoEntry.deleteMany({
+      where: {
+        userId: session?.user?.id,
+      },
+    });
+    count = 0;
+  }
+
   return {
-    props: {},
+    props: {
+      count: count,
+    },
   };
 };
-const Bingo: NextPage = () => {
-  const {
-    data: entries,
-    isLoading,
-    refetch,
-  } = trpc.useQuery(["auth.bingoEntriesget"]);
-  const { data: points } = trpc.useQuery(["auth.points.get"]);
-  const fields = [
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
-    22, 23, 24, 25,
-  ];
-
-  const getProjection = (field: number) => {
-    return entries?.find((entry) => entry.position === field)?.projection;
+const Bingo: NextPage<BingoPageProps> = ({ count }) => {
+  const getState = () => {
+    if (count === 0) {
+      return <CreateBoard />;
+    } else if (count === 25) {
+      return <Board />;
+    } else {
+      return <>Empty Board</>;
+    }
   };
+
   return (
     <>
       <Navbar />
@@ -46,27 +63,7 @@ const Bingo: NextPage = () => {
       </Head>
 
       <main className="min-h-screen bg-gradient-to-b from-black to-slate-900">
-        <div className="py-3 px-4 mx-auto max-w-screen-lg lg:py-10 lg:px-12">
-          <h1 className="text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
-            Dein Board
-          </h1>
-        </div>
-        <CreateBoard />
-        <div className="max-w-screen-sm mx-auto  container p-2^">
-          <div className="mx-auto  container ">
-            <div className="grid grid-cols-5 gap-2 gap-y-0.5">
-              {!isLoading &&
-                fields.map((field) => (
-                  <Field
-                    key={field}
-                    fieldNumber={field}
-                    projection={getProjection(field)}
-                  />
-                ))}
-            </div>
-          </div>
-        </div>
-        {points && entries && <Points entries={entries} points={points} />}
+        {getState()}
       </main>
     </>
   );

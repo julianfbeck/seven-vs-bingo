@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { styled } from "@stitches/react";
-import { whiteA } from "@radix-ui/colors";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import {
   Dialog,
@@ -15,8 +14,6 @@ import { Projection } from "@prisma/client";
 
 // Your app...
 const Flex = styled("div", { display: "flex" });
-
-
 
 //props
 interface SelectProjectionModalProps {

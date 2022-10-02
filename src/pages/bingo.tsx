@@ -61,7 +61,6 @@ const Bingo: NextPage = () => {
                     key={field}
                     fieldNumber={field}
                     projection={getProjection(field)}
-                    onUpdate={refetch}
                   />
                 ))}
             </div>

@@ -11,19 +11,12 @@ import {
   Fieldset,
   IconButton,
 } from "./components/ModalStyle";
-import ProjectionSelect from "./ProjectionSelect";
-import { trpc } from "../utils/trpc";
 import { Projection } from "@prisma/client";
 
 // Your app...
 const Flex = styled("div", { display: "flex" });
 
-const Label = styled("label", {
-  fontSize: 15,
-  color: whiteA.whiteA11,
-  width: 90,
-  textAlign: "right",
-});
+
 
 //props
 interface SelectProjectionModalProps {
@@ -36,7 +29,6 @@ interface SelectProjectionModalProps {
 const SelectProjectionModal: React.FC<SelectProjectionModalProps> = ({
   isOpen,
   fieldNumber,
-  defaultProjection,
   onClose,
 }) => {
   return (

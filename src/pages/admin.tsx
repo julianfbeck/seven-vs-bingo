@@ -7,6 +7,7 @@ import { AdminProposal } from "../lib/AdminProposal";
 import Navbar from "../lib/navbar";
 import { TabBar } from "../lib/TabBar";
 import { trpc } from "../utils/trpc";
+import { prisma } from "../server/db/client";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context);
@@ -18,7 +19,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       },
     };
   }
-  const isAdmin = await prisma?.user.findUnique({
+  const isAdmin = await prisma.user.findUnique({
     where: {
       id: session?.user?.id,
     },

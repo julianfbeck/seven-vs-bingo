@@ -1,14 +1,16 @@
 import { Projection } from "@prisma/client";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { trpc } from "../utils/trpc";
+import ConfirmModal from "./ConfirmModal";
 import Table from "./Table";
 
 export const CreateBoard = () => {
   const { data: entries } = trpc.useQuery(["projection.getAll"]);
-  const ctx = trpc.useContext();
   const postBingoInsert = trpc.useMutation("auth.bingoEntriesGenerate");
-
+  const router = useRouter();
   const [numberSelectedProjections, setNumberSelectedProjections] = useState(0);
+  const [confirmModal, setConfirmModal] = useState(false);
   const [selectedProjections, setSelectedProjections] = useState<
     Map<string, boolean>
   >(new Map());
@@ -16,6 +18,7 @@ export const CreateBoard = () => {
     const map = new Map();
     entries?.forEach((entry) => map.set(entry.id, false));
     setSelectedProjections(map);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const selectRandomProjections = () => {
@@ -34,6 +37,7 @@ export const CreateBoard = () => {
     await postBingoInsert.mutateAsync({
       projections: selectedEntries?.map((entry) => entry.id) || [],
     });
+    router.reload();
   };
 
   useEffect(() => {
@@ -80,7 +84,7 @@ export const CreateBoard = () => {
         <button
           className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-green-600 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-800 mr-3 disabled:opacity-50 disabled:cursor-not-allowed"
           disabled={numberSelectedProjections != 25}
-          onClick={selectBingoEntries}
+          onClick={() => setConfirmModal(true)}
         >
           {numberSelectedProjections}/25 Auswählen
         </button>
@@ -95,6 +99,11 @@ export const CreateBoard = () => {
         >
           Abbrechen
         </button>
+        <ConfirmModal
+          onGenerate={selectBingoEntries}
+          isOpen={confirmModal}
+          onClose={() => setConfirmModal(false)}
+        />
       </div>
     </>
   );

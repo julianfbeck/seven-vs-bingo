@@ -2,7 +2,7 @@ import type { GetServerSideProps, NextPage } from "next";
 import { getSession } from "next-auth/react";
 import Head from "next/head";
 import Board from "../lib/Board";
-import { CreateBoard } from "../lib/createBoard";
+import { CreateBoard } from "../lib/CreateBoard";
 import Navbar from "../lib/navbar";
 
 interface BingoPageProps {
@@ -15,7 +15,7 @@ export const getServerSideProps: GetServerSideProps<BingoPageProps> = async (
   if (!session) {
     return {
       redirect: {
-        destination: "/",
+        destination: "api/auth/signin",
         permanent: false,
       },
     };

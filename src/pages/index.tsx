@@ -3,6 +3,7 @@ import Head from "next/head";
 import Navbar from "../lib/navbar";
 import Projections from "../lib/NewProjection";
 import { ProjectionList } from "../lib/ProjectionList";
+import ScoreBoard from "../lib/ScoreBoard";
 
 const Home: NextPage = () => {
   return (
@@ -35,6 +36,7 @@ const Home: NextPage = () => {
         </div>
         <div className="container mx-auto max-w-md">
           <ProjectionList />
+          <ScoreBoard />
         </div>
         <div className="mt-96">{"."}</div>
       </main>

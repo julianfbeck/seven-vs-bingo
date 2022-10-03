@@ -22,7 +22,7 @@ const Home: NextPage = () => {
       <main className="min-h-screen bg-black p-2">
         <div className="flex items-center py-10">
           <div className="container mx-auto">
-            <div className=" mx-20 text-2xl font-extrabold tracking-tight leading-none text-gray-900 md:text-3xl lg:text-3xl dark:text-white">
+            <div className=" mx-20 text-2xl font-extrabold tracking-tight leading-none  md:text-3xl lg:text-3xl text-white">
               {entries && (
                 <Typewriter
                   words={entries?.map((entry) => entry.text) || []}

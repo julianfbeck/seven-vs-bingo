@@ -1,11 +1,13 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Navbar from "../lib/navbar";
+import { NewLanding } from "../lib/NewLanding";
 import Projections from "../lib/NewProjection";
 import { ProjectionList } from "../lib/ProjectionList";
 import ScoreBoard from "../lib/ScoreBoard";
 
 const Home: NextPage = () => {
+
   return (
     <>
       <Navbar />
@@ -15,7 +17,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="min-h-screen bg-gradient-to-b from-black to-slate-900 ">
+      <main className="min-h-screen bg-black ">
         <div className="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-10 lg:px-12">
           <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
             Deine Ideen für das Seven vs. Wild Bingo
@@ -29,12 +31,9 @@ const Home: NextPage = () => {
         <div className="p-3">
           <Projections />
         </div>
-        <div className="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-10 lg:px-12">
-          <h1 className="my-8 text-2xl font-extrabold tracking-tight leading-none text-gray-900 md:text-3xl lg:text-3xl dark:text-white">
-            Aktuelle Bingo Karten
-          </h1>
-        </div>
+
         <div className="container mx-auto max-w-md">
+        
           <ProjectionList />
           <ScoreBoard />
         </div>

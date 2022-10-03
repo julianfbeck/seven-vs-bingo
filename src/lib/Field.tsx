@@ -4,7 +4,7 @@ import SelectProjectionModal from "./ProjectionModal";
 
 interface TextProps {
   fieldNumber: number;
-  projection: Projection;
+  projection?: Projection;
 }
 
 export const Field: React.FC<TextProps> = ({ fieldNumber, projection }) => {
@@ -24,14 +24,16 @@ export const Field: React.FC<TextProps> = ({ fieldNumber, projection }) => {
       <button onClick={() => editMode(true)}>
         <CustomButton />
       </button>
-      <SelectProjectionModal
-        fieldNumber={fieldNumber}
-        isOpen={isEditMode}
-        projection={projection}
-        onClose={() => {
-          editMode(false);
-        }}
-      ></SelectProjectionModal>
+      {projection && (
+        <SelectProjectionModal
+          fieldNumber={fieldNumber}
+          isOpen={isEditMode}
+          projection={projection}
+          onClose={() => {
+            editMode(false);
+          }}
+        ></SelectProjectionModal>
+      )}
     </>
   );
 };

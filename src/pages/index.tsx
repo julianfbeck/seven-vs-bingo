@@ -20,7 +20,8 @@ const Home: NextPage = () => {
       </Head>
 
       <main className="min-h-screen bg-black p-2">
-        <div className="flex items-center py-10">
+        <div className="max-w-screen-xl mx-auto  container">
+        <div className="py-10">
           <div className="container mx-auto">
             <div className=" mx-20 text-2xl font-extrabold tracking-tight leading-none  md:text-3xl lg:text-3xl text-white">
               {entries && (
@@ -73,6 +74,7 @@ const Home: NextPage = () => {
               <ScoreBoard />
             </div>
           </div>
+        </div>
         </div>
       </main>
     </>

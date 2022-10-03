@@ -114,9 +114,7 @@ export const pointsRouter = createRouter()
             userName: user.name ?? "Unknown User",
           },
           update: {
-            score: {
-              increment: points + bingoPoints,
-            },
+            score:  points + bingoPoints,
           },
         });
       }

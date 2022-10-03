@@ -63,7 +63,7 @@ const Bingo: NextPage<BingoPageProps> = ({ count }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="min-h-screen bg-gradient-to-b from-black to-slate-900">
+      <main className="min-h-screen bg-black">
         {getState()}
       </main>
     </>

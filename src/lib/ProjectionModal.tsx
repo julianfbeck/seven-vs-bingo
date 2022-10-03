@@ -19,21 +19,29 @@ const Flex = styled("div", { display: "flex" });
 interface SelectProjectionModalProps {
   fieldNumber: number;
   isOpen: boolean;
-  defaultProjection?: Projection;
+  projection: Projection;
   onClose: () => void;
 }
 
 const SelectProjectionModal: React.FC<SelectProjectionModalProps> = ({
   isOpen,
   fieldNumber,
+  projection,
   onClose,
 }) => {
   return (
     <Dialog open={isOpen}>
       <DialogContent>
-        <DialogTitle>Bingo Karte bearbeiten</DialogTitle>
+        <DialogTitle>
+          Bingo Ereigniss {fieldNumber}:
+        </DialogTitle>
+        <DialogTitle>
+          {projection.text}
+        </DialogTitle>
         <DialogDescription>
-          Wähle deine Vorhersage für die Bingokarte {fieldNumber} aus.
+          <span className="text-md text-gray-400">
+            {projection.description}
+          </span>
         </DialogDescription>
         <Fieldset></Fieldset>
         <Flex css={{ marginTop: 25, justifyContent: "flex-end" }}>

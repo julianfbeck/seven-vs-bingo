@@ -21,7 +21,7 @@ export default function NewProjection() {
             <input
               type="search"
               id="default-search"
-              className="block p-4 w-full text-sm rounded-lg border  bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+              className="block p-4 w-full text-sm rounded border  bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
               placeholder="Bingo Vorschlag (kurzer Titel)"
               value={newProjection}
               onChange={(e) => setNewProjection(e.target.value)}
@@ -35,7 +35,7 @@ export default function NewProjection() {
             <textarea
               id="message"
               rows={4}
-              className="block p-2.5 w-full text-sm  rounded-lg border   bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+              className="block p-2.5 w-full text-sm  rounded border   bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
               placeholder="Genauere Beschreibung über die Bingo Karte"
               value={description}
               onChange={(e) => setDescription(e.target.value)}

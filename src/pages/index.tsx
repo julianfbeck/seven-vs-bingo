@@ -3,7 +3,6 @@ import Head from "next/head";
 import Image from "next/image";
 import { Typewriter } from "react-simple-typewriter";
 import Navbar from "../lib/navbar";
-import { NewLanding } from "../lib/NewLanding";
 import Projections from "../lib/NewProjection";
 import { ProjectionList } from "../lib/ProjectionList";
 import ScoreBoard from "../lib/ScoreBoard";

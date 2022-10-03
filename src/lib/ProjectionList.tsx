@@ -1,6 +1,4 @@
 import { Projection } from "@prisma/client";
-import { Typewriter } from "react-simple-typewriter";
-import { trpc } from "../utils/trpc";
 
 interface ProjectionListProps {
   projections: Projection[];

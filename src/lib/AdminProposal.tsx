@@ -17,7 +17,7 @@ export const AdminProposal: React.FC<AdminProposalProps> = ({
 }) => {
   const [editMode, setEditMode] = useState(false);
   return (
-    <div className="p-6 max-w-md bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 mb-4">
+    <div className="p-6 max-w-md rounded-lg border  shadow-md bg-gray-800 border-gray-700 mb-4">
       <EditProjectionModal
         projection={projection}
         isOpen={editMode}
@@ -27,11 +27,11 @@ export const AdminProposal: React.FC<AdminProposalProps> = ({
         }}
       />
       <div>
-        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+        <h5 className="mb-2 text-2xl font-bold tracking-tight  text-white">
           {projection.text}
         </h5>
       </div>
-      <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+      <p className="mb-3 font-normal  text-gray-400">
         {projection.description}
       </p>
       <button

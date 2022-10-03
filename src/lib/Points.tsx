@@ -22,7 +22,7 @@ const Points = ({ points, entries }: PointsProps) => {
   return (
     <>
       <div className="py-8 px-4 mx-auto max-w-screen-lg lg:py-10 lg:px-12">
-        <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+        <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl lg:text-6xl text-white">
           Deine Punkte
         </h1>
         <table className="w-full">

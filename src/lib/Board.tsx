@@ -17,7 +17,7 @@ const Board: React.FC = () => {
   return (
     <>
       <div className="py-3 px-4 mx-auto max-w-screen-lg lg:py-10 lg:px-12">
-        <h1 className="text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+        <h1 className="text-4xl font-extrabold tracking-tight leading-none md:text-5xl lg:text-6xl text-white">
           Dein Board
         </h1>
       </div>

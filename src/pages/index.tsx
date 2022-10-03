@@ -63,13 +63,15 @@ const Home: NextPage = () => {
             />
           </div>
         </div>
-        <div className="flex justify-center flex-row flex-wrap-reverse  space-x-20">
-          <div className="">
-            <ProjectionList projections={entries || []} />
-          </div>
+        <div className="container mx-auto">
+          <div className="grid grid-cols-1 content-center md:grid-cols-2 gap-3 ">
+            <div className="justify-center justify-self-center ">
+              <ProjectionList projections={entries || []} />
+            </div>
 
-          <div className="flex-none flex-row-reverse mt-24">
-            <ScoreBoard />
+            <div className="justify-center justify-self-center md:justify-start md:justify-self-start order-first md:order-last mt-20 col-span-1 ">
+              <ScoreBoard />
+            </div>
           </div>
         </div>
       </main>

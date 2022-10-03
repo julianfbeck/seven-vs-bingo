@@ -18,16 +18,16 @@ export const AdminProjectionEntry: React.FC<AdminProposalProps> = ({
     <div
       key={projection.id}
       className={
-        "p-6 max-w-md bg-white rounded-lg border  shadow-md dark:bg-gray-800 border-gray-700 mb-4" +
+        "p-6 max-w-md  rounded-lg border  shadow-md bg-gray-800 border-gray-700 mb-4" +
         (projection.hasBecomeTrue ? " border-green-600" : " border-gray-700")
       }
     >
       <div>
-        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+        <h5 className="mb-2 text-2xl font-bold tracking-tight  text-white">
           {projection.text}
         </h5>
       </div>
-      <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+      <p className="mb-3 font-normal  text-gray-400">
         {projection.description}
       </p>
       <button

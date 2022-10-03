@@ -52,10 +52,10 @@ export const CreateBoard = () => {
   return (
     <>
       <div className="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-10 lg:px-12">
-        <h1 className="text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+        <h1 className="text-4xl font-extrabold tracking-tight leading-none  md:text-5xl lg:text-6xl text-white">
           Erstelle dein Bingo Board
         </h1>
-        <p className="mt-5 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">
+        <p className="mt-5 text-lg font-normal lg:text-xl sm:px-16 xl:px-48 text-gray-400">
           Wähle 25 Ereignisse aus, die du für wahrscheinlich hältst und erstelle
           dein individuelles Bingo Board für die zweite Staffel von {`"`}Seven
           vs. Wild{`"`}

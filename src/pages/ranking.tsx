@@ -129,7 +129,7 @@ const Ranking: NextPage = () => {
           {candidates.map((candidate, index) => (
             <div
               key={index}
-              className=" container mx-auto bg-slate-100 rounded-xl p-3 dark:bg-slate-800 mt-3 text-white border-2 border-white"
+              className=" container mx-auto  rounded-xl p-3 bg-slate-800 mt-3 text-white border-2 border-white"
             >
               <div className="flex flex-wrap">
                 <div className="flex-auto text-2xl ">{candidate.name}</div>

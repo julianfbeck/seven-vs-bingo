@@ -76,7 +76,7 @@ export default function Navbar() {
                   <div>
                     <button
                       type="button"
-                      className="text-white bg-[#874af6] hover:bg-[#874af6]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#3b5998]/55 mr-2"
+                      className="text-white bg-[#874af6] hover:bg-[#874af6]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center focus:ring-[#3b5998]/55 mr-2"
                       onClick={() => signIn("twitch")}
                     >
                       Anmelden
@@ -88,7 +88,7 @@ export default function Navbar() {
                     </button>
                     <button
                       type="button"
-                      className="text-white bg-[#635def] hover:bg-[#635def]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#3b5998]/55 mr-2"
+                      className="text-white bg-[#635def] hover:bg-[#635def]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center focus:ring-[#3b5998]/55 mr-2"
                       onClick={() => signIn("discord")}
                     >
                       Anmelden

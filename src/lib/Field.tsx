@@ -38,7 +38,7 @@ export const Field: React.FC<TextProps> = ({ fieldNumber, projection }) => {
 
 const EmptyField = () => {
   return (
-    <div className="container aspect-square bg-slate-100 rounded-xl p-3 dark:bg-slate-800 mt-3 opacity-70">
+    <div className="container aspect-square rounded-xl p-3 bg-slate-800 mt-3 opacity-70">
       <div className="flex flex-col justify-center items-center h-full text-white text-xs hover:decoration-green-500 hover:underline">
         Bingo Karte hinzufügen
       </div>
@@ -48,7 +48,7 @@ const EmptyField = () => {
 
 const NormalField = ({ fieldNumber, projection }: TextProps) => {
   return (
-    <div className="container aspect-square bg-slate-100 rounded-xl p-0.5 dark:bg-slate-800 mt-3 text-white border-2 border-white">
+    <div className="container aspect-square  rounded-xl p-0.5 bg-slate-800 mt-3 text-white border-2 border-white">
       <div className="absolute  p-1 text-green-300">{fieldNumber}</div>
 
       <div className="flex flex-col justify-center items-center h-full text-white text-xs lg:text-lg hover:decoration-green-500 hover:underline overflow-hidden">

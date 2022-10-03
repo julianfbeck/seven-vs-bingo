@@ -23,11 +23,13 @@ export const Steps = () => {
               </div>
               <div className="flex-grow pl-4">
                 <h2 className="font-medium title-font text-sm text-green-700 mb-1 tracking-wider">
-                  STEP 1
+                  SCHRITT 1
                 </h2>
                 <p className="leading-relaxed">
-                  VHS cornhole pop-up, try-hard 8-bit iceland helvetica. Kinfolk
-                  bespoke try-hard cliche palo santo offal.
+                  Sende uns deine Ideen für das Seven vs. Wild Bingo. Überlege
+                  dir hierfür einfach Ereignisse die in der zweiten Staffel von
+                  Seven vs. Wild passieren könnten und schreibe sie in das
+                  Formular.
                 </p>
               </div>
             </div>
@@ -47,40 +49,17 @@ export const Steps = () => {
               </div>
               <div className="flex-grow pl-4">
                 <h2 className="font-medium title-font text-sm text-green-700 mb-1 tracking-wider">
-                  STEP 2
+                  SCHRITT 2
                 </h2>
                 <p className="leading-relaxed">
-                  Vice migas literally kitsch +1 pok pok. Truffaut hot chicken
-                  slow-carb health goth, vape typewriter.
+                  Erstelle dir dein eigenes Bingo-Board aus deinen und der
+                  Community eingereichten Ideen. Du kannst hierbei selbst die
+                  Ereignisse für die Bingo Felder auswählen. Anschließend
+                  generieren wir für dich ein zufälliges Bingo-Board.
                 </p>
               </div>
             </div>
             <div className="flex relative pb-12">
-              <div className="h-full w-10 absolute inset-0 flex items-center justify-center">
-                <div className="h-full w-1 bg-gray-200 pointer-events-none"></div>
-              </div>
-              <div className="flex-shrink-0 w-10 h-10 rounded-full bg-green-700 inline-flex items-center justify-center text-white relative z-10">
-                <svg
-                  fill="none"
-                  stroke="currentColor"
-                  className="w-5 h-5"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
-                  <circle cx="12" cy="7" r="4"></circle>
-                </svg>
-              </div>
-              <div className="flex-grow pl-4">
-                <h2 className="font-medium title-font text-sm text-green-700 mb-1 tracking-wider">
-                  STEP 4
-                </h2>
-                <p className="leading-relaxed">
-                  VHS cornhole pop-up, try-hard 8-bit iceland helvetica. Kinfolk
-                  bespoke try-hard cliche palo santo offal.
-                </p>
-              </div>
-            </div>
-            <div className="flex relative">
               <div className="flex-shrink-0 w-10 h-10 rounded-full bg-green-700 inline-flex items-center justify-center text-white relative z-10">
                 <svg
                   fill="none"
@@ -94,11 +73,13 @@ export const Steps = () => {
               </div>
               <div className="flex-grow pl-4">
                 <h2 className="font-medium title-font text-sm text-green-700 mb-1 tracking-wider">
-                  FINISH
+                  SCHRITT 3
                 </h2>
                 <p className="leading-relaxed">
-                  Pitchfork ugh tattooed scenester echo park gastropub whatever
-                  cold-pressed retro.
+                  Sobald die erste Folge von Seven vs. Wild veröffentlicht
+                  wurde, beginnt das Bingo. Du bekommst Punkte für jedes Feld
+                  auf dem Board das eingetreten ist. Den Gewinner des Bingos
+                  ermitteln wir anhand der Punkte die du gesammelt hast.
                 </p>
               </div>
             </div>

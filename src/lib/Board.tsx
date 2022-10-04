@@ -2,6 +2,10 @@ import { useRouter } from "next/router";
 import { trpc } from "../utils/trpc";
 import { Field } from "./Field";
 import Points from "./Points";
+import {
+  TransformComponent,
+  TransformWrapper,
+} from "@pronestor/react-zoom-pan-pinch";
 interface BoardProps {
   boardId: string;
 }
@@ -42,16 +46,20 @@ const Board = ({ boardId }: BoardProps) => {
       </div>
       <div className="max-w-screen-sm mx-auto  container p-2^">
         <div className="mx-auto  container ">
-          <div className="grid grid-cols-5 gap-2 gap-y-0.5">
-            {!isLoading &&
-              fields.map((field) => (
-                <Field
-                  key={field}
-                  fieldNumber={field}
-                  projection={getProjection(field)}
-                />
-              ))}
-          </div>
+          <TransformWrapper>
+            <TransformComponent>
+              <div className="grid grid-cols-5 gap-2 gap-y-0.5">
+                {!isLoading &&
+                  fields.map((field) => (
+                    <Field
+                      key={field}
+                      fieldNumber={field}
+                      projection={getProjection(field)}
+                    />
+                  ))}
+              </div>
+            </TransformComponent>
+          </TransformWrapper>
         </div>
       </div>
       {points && entries && <Points entries={entries} points={points} />}

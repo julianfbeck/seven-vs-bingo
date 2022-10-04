@@ -57,6 +57,7 @@ model User {
     emailVerified DateTime?
     image         String?
     role          String?   @default("user")
+    shareId       String?   @unique
     accounts      Account[]
     sessions      Session[]
     Ranking       Ranking?

@@ -1,5 +1,15 @@
 # Seven vs. Wild Bingo
-
+- Anmerkungen zur Spielregel
+- Minor
+- 7 vs Wild
+- Beschreibgung Entfernen
+- twitch login fixen
+- hervorheben
+- styling
+- custom punkte pro eintrag
+- 1, 5 und 10 punkte
+- spalte verdoppeln
+- downlad as image
 This is an app bootstrapped according to the [init.tips](https://init.tips) stack, also known as the T3-Stack.
 
 ## Why are there `.js` files in here?

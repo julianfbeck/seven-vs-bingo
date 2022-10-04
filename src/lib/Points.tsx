@@ -6,9 +6,10 @@ interface PointsProps {
   entries: (BingoEntry & {
     projection: Projection;
   })[];
+  external?: boolean;
 }
 
-const Points = ({ points, entries }: PointsProps) => {
+const Points = ({ points, entries, external }: PointsProps) => {
   const calcualtePoints = () => {
     let total = entries
       .filter((entry) => entry.projection.hasBecomeTrue)
@@ -23,7 +24,7 @@ const Points = ({ points, entries }: PointsProps) => {
     <>
       <div className="py-8 px-4 mx-auto max-w-screen-lg lg:py-10 lg:px-12">
         <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl lg:text-6xl text-white">
-          Deine Punkte
+          {external? "Punkte" : " Deine Punkte"}
         </h1>
         <table className="w-full">
           <tbody className="border-slate-500 border-b bg-gray-800 ">

@@ -1,9 +1,33 @@
-import { prisma } from "./../db/client";
 import { createRouter } from "./context";
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
+import { nanoid } from "nanoid";
 
 export const bingoEntriesRouter = createRouter()
+  .query(".getByBoardId", {
+    input: z.object({
+      boardId: z.string(),
+    }),
+    async resolve({ ctx, input }) {
+      const user = await ctx.prisma.user.findUnique({
+        where: {
+          shareId: input.boardId,
+        },
+      });
+      if (!user) {
+        throw new TRPCError({ code: "NOT_FOUND" });
+      }
+
+      return await ctx.prisma.bingoEntry.findMany({
+        where: {
+          userId: user.id,
+        },
+        include: {
+          projection: true,
+        },
+      });
+    },
+  })
   .middleware(async ({ ctx, next }) => {
     // Any queries or mutations after this middleware will
     // raise an error unless there is a current session
@@ -55,6 +79,15 @@ export const bingoEntriesRouter = createRouter()
             position: index + 1,
             projectionId,
           })),
+        });
+        // generate random id to share the bingo board
+        await ctx.prisma.user.update({
+          where: {
+            id: ctx.session?.user?.id || "",
+          },
+          data: {
+            shareId: nanoid(12),
+          },
         });
       } catch (error) {
         console.log("error", error);

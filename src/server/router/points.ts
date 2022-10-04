@@ -2,7 +2,7 @@ import { createRouter } from "./context";
 import { TRPCError } from "@trpc/server";
 import { Constants } from "../../utils/points";
 
-const bingoWinningEntries = [
+export const bingoWinningEntries = [
   //rows
   [1, 2, 3, 4, 5],
   [6, 7, 8, 9, 10],
@@ -53,6 +53,7 @@ export const pointsRouter = createRouter()
           projection: true,
         },
       });
+
       // get positions that win
       const winningPositions = entries
         .filter((e) => e.projection.hasBecomeTrue)
@@ -114,7 +115,7 @@ export const pointsRouter = createRouter()
             userName: user.name ?? "Unknown User",
           },
           update: {
-            score:  points + bingoPoints,
+            score: points + bingoPoints,
           },
         });
       }

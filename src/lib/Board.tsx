@@ -1,10 +1,39 @@
+import { useCallback, useEffect, useState } from "react";
 import { trpc } from "../utils/trpc";
 import { Field } from "./Field";
 import Points from "./Points";
+type CopyStatus = "inactive" | "copied" | "failed";
+const useCopyToClipboard = (
+  text: string,
+  notifyTimeout = 2500
+): [CopyStatus, () => void] => {
+  const [copyStatus, setCopyStatus] = useState<CopyStatus>("inactive");
+  const copy = useCallback(() => {
+    navigator.clipboard.writeText(text).then(
+      () => setCopyStatus("copied"),
+      () => setCopyStatus("failed")
+    );
+  }, [text]);
 
+  useEffect(() => {
+    if (copyStatus === "inactive") {
+      return;
+    }
+
+    const timeoutId = setTimeout(
+      () => setCopyStatus("inactive"),
+      notifyTimeout
+    );
+
+    return () => clearTimeout(timeoutId);
+  }, [copyStatus]);
+
+  return [copyStatus, copy];
+};
 const Board: React.FC = () => {
   const { data: entries, isLoading } = trpc.useQuery(["auth.bingoEntriesget"]);
   const { data: points } = trpc.useQuery(["auth.points.get"]);
+  const [copyStatus, copy] = useCopyToClipboard("")
   const fields = [
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
     22, 23, 24, 25,
@@ -12,7 +41,6 @@ const Board: React.FC = () => {
 
   const getProjection = (field: number) => {
     return entries?.find((entry) => entry.position === field)?.projection;
-	
   };
   return (
     <>
@@ -20,6 +48,9 @@ const Board: React.FC = () => {
         <h1 className="text-4xl font-extrabold tracking-tight leading-none md:text-5xl lg:text-6xl text-white">
           Dein Board
         </h1>
+        <button className="bg-white text-black font-bold py-2 px-4 rounded">
+          Board Teilen
+        </button>
       </div>
       <div className="max-w-screen-sm mx-auto  container p-2^">
         <div className="mx-auto  container ">

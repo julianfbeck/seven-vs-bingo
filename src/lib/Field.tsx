@@ -40,7 +40,7 @@ export const Field: React.FC<TextProps> = ({ fieldNumber, projection }) => {
 
 const EmptyField = () => {
   return (
-    <div className="container aspect-square rounded-xl p-3 bg-slate-800 mt-3 opacity-70">
+    <div className="container aspect-square rounded-xl p-3 bg-slate-800  opacity-70">
       <div className="flex flex-col justify-center items-center h-full text-white text-xs hover:decoration-green-500 hover:underline">
         Bingo Karte hinzufügen
       </div>
@@ -48,11 +48,9 @@ const EmptyField = () => {
   );
 };
 
-const NormalField = ({ fieldNumber, projection }: TextProps) => {
+const NormalField = ({ projection }: TextProps) => {
   return (
-    <div className="container aspect-square  rounded-xl p-0.5 bg-slate-800 mt-3 text-white border-2 border-white">
-      <div className="absolute  p-1 text-green-300">{fieldNumber}</div>
-
+    <div className="container aspect-square  rounded-xl  bg-slate-800  text-white border border-white">
       <div className="flex flex-col justify-center items-center h-full text-white text-xs lg:text-lg hover:decoration-green-500 hover:underline overflow-hidden">
         {projection?.text}
       </div>
@@ -60,11 +58,9 @@ const NormalField = ({ fieldNumber, projection }: TextProps) => {
   );
 };
 
-const CorrectField = ({ fieldNumber, projection }: TextProps) => {
+const CorrectField = ({ projection }: TextProps) => {
   return (
-    <div className="container aspect-square  rounded-xl p-0.5 bg-green-500 mt-3 text-white border-2 border-green-900">
-      <div className="absolute  p-1  text-white font-medium">{fieldNumber}</div>
-
+    <div className="container aspect-square  rounded-xl bg-green-500  text-white border border-green-900">
       <div className="flex flex-col justify-center items-center h-full text-white text-xs lg:text-lg hover:decoration-green-500 hover:underline overflow-hidden">
         {projection?.text}
       </div>

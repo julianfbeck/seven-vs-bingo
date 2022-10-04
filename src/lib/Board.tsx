@@ -48,7 +48,7 @@ const Board = ({ boardId }: BoardProps) => {
         <div className="mx-auto  container ">
           <TransformWrapper>
             <TransformComponent>
-              <div className="grid grid-cols-5 gap-2 gap-y-0.5">
+              <div className="grid grid-cols-5 gap-2 ">
                 {!isLoading &&
                   fields.map((field) => (
                     <Field

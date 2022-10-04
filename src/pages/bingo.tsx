@@ -8,6 +8,7 @@ import { prisma } from "../server/db/client";
 
 interface BingoPageProps {
   count: number | undefined;
+  boardId: string | undefined;
 }
 export const getServerSideProps: GetServerSideProps<BingoPageProps> = async (
   context
@@ -36,19 +37,26 @@ export const getServerSideProps: GetServerSideProps<BingoPageProps> = async (
     });
     count = 0;
   }
+  const user = await prisma.user.findUnique({
+    where: {
+      id: session?.user?.id || "",
+    },
+  });
 
   return {
     props: {
       count: count,
+      boardId: user?.shareId || "Undefined",
     },
   };
 };
-const Bingo: NextPage<BingoPageProps> = ({ count }) => {
+
+const Bingo: NextPage<BingoPageProps> = ({ count, boardId }) => {
   const getState = () => {
     if (count === 0) {
       return <CreateBoard />;
     } else if (count === 25) {
-      return <Board />;
+      return <Board boardId={boardId || "Unknown"} />;
     } else {
       return <>Empty Board</>;
     }
@@ -63,9 +71,7 @@ const Bingo: NextPage<BingoPageProps> = ({ count }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="min-h-screen bg-black">
-        {getState()}
-      </main>
+      <main className="min-h-screen bg-black">{getState()}</main>
     </>
   );
 };

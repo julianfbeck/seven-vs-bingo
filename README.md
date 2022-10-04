@@ -3,7 +3,7 @@
 - Minor
 - 7 vs Wild
 - Beschreibgung Entfernen
-- twitch login fixen
+- [x] twitch login fixen
 - hervorheben
 - styling
 - custom punkte pro eintrag

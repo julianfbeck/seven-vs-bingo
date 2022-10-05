@@ -34,7 +34,9 @@ const Board = ({ boardId }: BoardProps) => {
     <>
       <div className="py-3 px-4 mx-auto max-w-screen-lg lg:py-10 lg:px-12">
         <h1 className="text-4xl font-extrabold tracking-tight leading-none md:text-5xl lg:text-6xl text-white">
-          Dein Board
+          Dein <span className="bg-clip-text text-transparent bg-gradient-to-r from-green-700 via-green-500 to-lime-500">
+            Bingo Board
+          </span>
         </h1>
         <button
           className="bg-white text-black font-bold py-2 px-4 rounded"

@@ -27,7 +27,7 @@ const Home: NextPage = () => {
               <div className=" mx-20 text-2xl font-extrabold tracking-tight leading-none  md:text-3xl lg:text-3xl text-white">
                 {entries && (
                   <Typewriter
-                    words={entries?.map((entry) => entry.text) || []}
+                    words={entries?.map((entry) => entry.text).sort(() => 0.5 - Math.random()) || []}
                     loop={5}
                     cursor
                     cursorStyle="_"

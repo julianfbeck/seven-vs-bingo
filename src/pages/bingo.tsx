@@ -43,6 +43,7 @@ export const getServerSideProps: GetServerSideProps<BingoPageProps> = async (
     },
   });
 
+
   return {
     props: {
       count: count,

@@ -10,7 +10,6 @@ import {
 
 export default function NewProjection() {
   const [newProjection, setNewProjection] = useState("");
-  const [description, setDescription] = useState("");
   const [showConfirmToast, setShowConfirmToast] = useState(false);
   const postProjection = trpc.useMutation("projection.Insert");
   return (
@@ -30,33 +29,17 @@ export default function NewProjection() {
             <div className="absolute right-2 bottom-32 text-white">
               {newProjection.length}/{50}
             </div>
-
-            <label className="block mb-2 text-sm font-medium  text-gray-400"></label>
-            <textarea
-              id="message"
-              rows={4}
-              className="block p-2.5 w-full text-sm  rounded border   bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
-              placeholder="Genauere Beschreibung über die Bingo Karte"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-            ></textarea>
           </div>
           <button
             onClick={async (e) => {
               e.preventDefault();
               await postProjection.mutateAsync({
                 text: newProjection,
-                description: description,
               });
               setNewProjection("");
-              setDescription("");
               setShowConfirmToast(true);
             }}
-            disabled={
-              postProjection.isLoading ||
-              newProjection.length === 0 ||
-              description.length === 0
-            }
+            disabled={postProjection.isLoading || newProjection.length === 0}
             className="float-right mt-6 text-white  focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 bg-blue-600 hover:bg-blue-700 focus:ring-blue-800 disabled:opacity-50"
           >
             Absenden

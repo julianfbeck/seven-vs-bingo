@@ -10,7 +10,6 @@ interface BoardProps {
   boardId: string;
 }
 const Board = ({ boardId }: BoardProps) => {
-  const router = useRouter();
   const { data: entries, isLoading } = trpc.useQuery(["auth.bingoEntriesget"]);
   const { data: points } = trpc.useQuery(["auth.points.get"]);
 

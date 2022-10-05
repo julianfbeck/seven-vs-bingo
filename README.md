@@ -8,7 +8,8 @@
 - styling
 - custom punkte pro eintrag
 - 1, 5 und 10 punkte
-- spalte verdoppeln
+- spalte verdoppeln wenn richtig
+- coole effekte
 - downlad as image
 This is an app bootstrapped according to the [init.tips](https://init.tips) stack, also known as the T3-Stack.
 

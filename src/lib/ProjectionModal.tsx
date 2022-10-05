@@ -5,7 +5,6 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
-  DialogDescription,
   DialogTitle,
   Fieldset,
   IconButton,
@@ -32,17 +31,8 @@ const SelectProjectionModal: React.FC<SelectProjectionModalProps> = ({
   return (
     <Dialog open={isOpen}>
       <DialogContent>
-        <DialogTitle>
-          Bingo Ereigniss {fieldNumber}:
-        </DialogTitle>
-        <DialogTitle>
-          {projection.text}
-        </DialogTitle>
-        <DialogDescription>
-          <span className="text-md text-gray-400">
-            {projection.description}
-          </span>
-        </DialogDescription>
+        <DialogTitle>Bingo Ereigniss {fieldNumber}:</DialogTitle>
+        <DialogTitle>{projection.text}</DialogTitle>
         <Fieldset></Fieldset>
         <Flex css={{ marginTop: 25, justifyContent: "flex-end" }}>
           <DialogClose asChild>

@@ -26,7 +26,6 @@ const EditProjectionModal = ({
   onClose,
 }: EditModalProps) => {
   const [newProjection, setNewProjection] = useState(projection.text);
-  const [description, setDescription] = useState(projection.description);
   const editEntry = trpc.useMutation("projection.auth.Update");
   return (
     <Dialog open={isOpen}>
@@ -50,30 +49,16 @@ const EditProjectionModal = ({
           <div className="absolute right-2 bottom-32 text-white">
             {newProjection.length}/{50}
           </div>
-
-          <label className="block mb-2 text-sm font-medium  text-gray-400"></label>
-          <textarea
-            id="message"
-            rows={4}
-            className="block p-2.5 w-full text-sm  rounded-lg border  bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
-            placeholder="Genauere Beschreibung über die Bingo Karte"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          ></textarea>
         </div>
         <Flex css={{ marginTop: 25, justifyContent: "flex-end" }}>
           <DialogClose asChild>
             <button
-              disabled={
-                projection.text === newProjection &&
-                projection.description === description
-              }
+              disabled={projection.text === newProjection}
               className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-800 mr-3"
               onClick={async () => {
                 await editEntry.mutateAsync({
                   id: projection.id,
-                  text: newProjection,
-                  description: description,
+                  text: newProjection
                 });
                 onClose();
               }}

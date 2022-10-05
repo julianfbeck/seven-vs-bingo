@@ -86,7 +86,6 @@ model Projection {
     id            String       @id @default(cuid())
     text          String
     createdAt     DateTime     @default(now())
-    description   String
     isApproved    Boolean      @default(false)
     hasBecomeTrue Boolean      @default(false)
     difficulty    Int          @default(0)

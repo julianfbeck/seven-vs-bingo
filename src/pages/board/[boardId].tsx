@@ -45,7 +45,6 @@ export const getServerSideProps: GetServerSideProps<SharedBoardProps> = async (
         select: {
           id: true,
           text: true,
-          description: true,
           isApproved: true,
           hasBecomeTrue: true,
         },

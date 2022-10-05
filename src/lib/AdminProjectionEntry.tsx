@@ -27,9 +27,6 @@ export const AdminProjectionEntry: React.FC<AdminProposalProps> = ({
           {projection.text}
         </h5>
       </div>
-      <p className="mb-3 font-normal  text-gray-400">
-        {projection.description}
-      </p>
       <button
         className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-800 mr-3 disabled:bg-red-900 disabled:opacity-50"
         disabled={projection.hasBecomeTrue}

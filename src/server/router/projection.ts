@@ -1,4 +1,4 @@
-import { Projection } from '@prisma/client';
+import { Projection } from "@prisma/client";
 import { createRouter } from "./context";
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
@@ -16,7 +16,6 @@ export const projectionRouter = createRouter()
   .mutation("Insert", {
     input: z.object({
       text: z.string(),
-      description: z.string(),
     }),
     async resolve({ ctx, input }) {
       if (input.text.length > 50) {
@@ -29,7 +28,6 @@ export const projectionRouter = createRouter()
         await ctx.prisma.projection.create({
           data: {
             text: input.text,
-            description: input.description,
           },
         });
       } catch (error) {
@@ -93,7 +91,6 @@ export const projectionRouter = createRouter()
     input: z.object({
       id: z.string(),
       text: z.string(),
-      description: z.string(),
     }),
     async resolve({ ctx, input }) {
       if (input.text.length > 50) {
@@ -109,7 +106,6 @@ export const projectionRouter = createRouter()
           },
           data: {
             text: input.text,
-            description: input.description,
           },
         });
       } catch (error) {

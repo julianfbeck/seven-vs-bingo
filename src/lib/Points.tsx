@@ -24,7 +24,7 @@ const Points = ({ points, entries, external }: PointsProps) => {
     <>
       <div className="py-8 px-4 mx-auto max-w-screen-lg lg:py-10 lg:px-12">
         <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl lg:text-6xl text-white">
-          {external? "Punkte" : " Deine Punkte"}
+          {external ? "Punkte" : " Deine Punkte"}
         </h1>
         <table className="w-full">
           <tbody className="border-slate-500 border-b bg-gray-800 ">
@@ -40,9 +40,6 @@ const Points = ({ points, entries, external }: PointsProps) => {
                       <div className="ml-3">
                         <div className="text-sm leading-5 font-medium text-gray-100">
                           {entries.projection.text}
-                        </div>
-                        <div className="text-sm font-thin leading-5 text-gray-300">
-                          {entries.projection.description}
                         </div>
                       </div>
                     </div>

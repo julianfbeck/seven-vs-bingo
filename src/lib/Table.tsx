@@ -31,9 +31,6 @@ const Table = ({
                 Ereignis
               </th>
               <th scope="col" className="py-3 px-6">
-                Beschreibung
-              </th>
-              <th scope="col" className="py-3 px-6">
                 Punkte
               </th>
             </tr>
@@ -68,7 +65,6 @@ const Table = ({
                   >
                     {projection.text}
                   </th>
-                  <td className="py-4 px-6">{projection.description}</td>
                   <td className="py-4 px-6">
                     {Constants.PointsPerCorrectEntry}
                   </td>

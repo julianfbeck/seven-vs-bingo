@@ -31,9 +31,7 @@ export const AdminProposal: React.FC<AdminProposalProps> = ({
           {projection.text}
         </h5>
       </div>
-      <p className="mb-3 font-normal  text-gray-400">
-        {projection.description}
-      </p>
+
       <button
         className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-green-600 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-800 mr-3"
         onClick={async () => await onAccept()}

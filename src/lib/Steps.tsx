@@ -3,8 +3,8 @@ export const Steps = () => {
     <section className="text-gray-400 body-font bg-[#0e121f] mt-10">
       <div className="container px-5 mx-auto flex flex-wrap">
         <div className="flex flex-wrap w-full">
-          <div className=" md:pr-10 md:py-6">
-            <h1 className=" text-3xl mb-10 text-white font-bold leading-tight text-center md:text-left">
+          <div className=" md:pr-10 py-6">
+            <h1 className=" text-3xl mb-10 text-white font-bold leading-tight text-center md:text-left ">
               Wie funktioniert das Seven vs. Wild Bingo?
             </h1>
             <div className="flex relative pb-12">

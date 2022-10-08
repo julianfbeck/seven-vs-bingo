@@ -56,6 +56,7 @@ export const projectionRouter = createRouter()
     input: z.object({
       id: z.string(),
     }),
+    //TODO: add check if user is admin
     async resolve({ ctx, input }) {
       try {
         await ctx.prisma.projection.update({
@@ -75,6 +76,7 @@ export const projectionRouter = createRouter()
     input: z.object({
       id: z.string(),
     }),
+    //TODO: add check if user is admin
     async resolve({ ctx, input }) {
       try {
         await ctx.prisma.projection.delete({
@@ -91,7 +93,9 @@ export const projectionRouter = createRouter()
     input: z.object({
       id: z.string(),
       text: z.string(),
+      points: z.number(),
     }),
+    //TODO add check if user is admin
     async resolve({ ctx, input }) {
       if (input.text.length > 50) {
         throw new Error("Text too long");
@@ -106,6 +110,7 @@ export const projectionRouter = createRouter()
           },
           data: {
             text: input.text,
+            difficulty: input.points,
           },
         });
       } catch (error) {
@@ -117,6 +122,7 @@ export const projectionRouter = createRouter()
     input: z.object({
       id: z.string(),
     }),
+    //TODO add check if user is admin
     async resolve({ ctx, input }) {
       try {
         await ctx.prisma.projection.update({

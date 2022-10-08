@@ -11,6 +11,7 @@ import {
   DialogTitle,
   IconButton,
 } from "./components/ModalStyle";
+import RankingSelect from "./RankingSelect";
 
 interface EditModalProps {
   projection: Projection;
@@ -26,6 +27,7 @@ const EditProjectionModal = ({
   onClose,
 }: EditModalProps) => {
   const [newProjection, setNewProjection] = useState(projection.text);
+  const [points, setPoints] = useState(projection.difficulty);
   const editEntry = trpc.useMutation("projection.auth.Update");
   return (
     <Dialog open={isOpen}>
@@ -34,7 +36,6 @@ const EditProjectionModal = ({
         <DialogDescription>
           Bearbeite die Karte und klicke auf Speichern, um die Änderungen zu
           übernehmen.
-          {JSON.stringify(projection)}
         </DialogDescription>
         <div className="relative">
           <input
@@ -50,15 +51,26 @@ const EditProjectionModal = ({
             {newProjection.length}/{50}
           </div>
         </div>
+        <div>
+          <DialogDescription>Punkte für die Karte auswählen</DialogDescription>
+          <RankingSelect
+            onSelect={(value) => setPoints(Number(value))}
+            defaulValue={String(projection.difficulty)}
+          />
+        </div>
         <Flex css={{ marginTop: 25, justifyContent: "flex-end" }}>
           <DialogClose asChild>
             <button
-              disabled={projection.text === newProjection}
-              className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-800 mr-3"
+              disabled={
+                projection.text === newProjection &&
+                points === projection.difficulty
+              }
+              className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-800 mr-3 disabled:opacity-50 disabled:cursor-not-allowed"
               onClick={async () => {
                 await editEntry.mutateAsync({
                   id: projection.id,
-                  text: newProjection
+                  text: newProjection,
+                  points: points,
                 });
                 onClose();
               }}

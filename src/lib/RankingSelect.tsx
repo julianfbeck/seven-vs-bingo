@@ -13,23 +13,28 @@ import {
   SelectValue,
   SelectViewport,
 } from "./components/SelectStyle";
-import { Projection } from "@prisma/client";
+import { Constants } from "../utils/points";
 
 interface ProjectionSelectProps {
-  projections: Projection[];
-  defaulValue?: Projection
+  defaulValue?: string;
   onSelect: (projection: string) => void;
 }
 
-export const ProjectionSelect: React.FC<ProjectionSelectProps> = ({
-  projections,
+// three difficulties per projection
+const DIFFICULTY = [
+  Constants.PointsPerEasyEntry,
+  Constants.PointsPerMediumEntry,
+  Constants.PointsPerHardEntry,
+];
+
+export const RankingSelect: React.FC<ProjectionSelectProps> = ({
   defaulValue,
   onSelect,
 }) => {
   return (
-    <Select onValueChange={onSelect} defaultValue={defaulValue?.id}>
-      <SelectTrigger aria-label="Vorhersagen">
-        <SelectValue placeholder="Auswählen..." />
+    <Select onValueChange={onSelect} defaultValue={defaulValue}>
+      <SelectTrigger aria-label="Punkte">
+        <SelectValue placeholder="Punkte..." />
       </SelectTrigger>
       <SelectContent>
         <SelectScrollUpButton>
@@ -37,10 +42,10 @@ export const ProjectionSelect: React.FC<ProjectionSelectProps> = ({
         </SelectScrollUpButton>
         <SelectViewport>
           <SelectGroup>
-            <SelectLabel>Vorhersagen</SelectLabel>
-            {projections?.map((projection) => (
-              <SelectItem key={projection.id} value={projection.id}>
-                <SelectItemText>{projection.text}</SelectItemText>
+            <SelectLabel>Punkte</SelectLabel>
+            {DIFFICULTY.map((difficulty, index) => (
+              <SelectItem key={index} value={String(index)}>
+                <SelectItemText>Punkte: {difficulty}</SelectItemText>
                 <SelectItemIndicator>
                   <CheckIcon />
                 </SelectItemIndicator>
@@ -53,4 +58,4 @@ export const ProjectionSelect: React.FC<ProjectionSelectProps> = ({
   );
 };
 
-export default ProjectionSelect;
+export default RankingSelect;

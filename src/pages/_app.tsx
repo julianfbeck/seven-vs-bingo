@@ -3,6 +3,7 @@ import { httpBatchLink } from "@trpc/client/links/httpBatchLink";
 import { loggerLink } from "@trpc/client/links/loggerLink";
 import { withTRPC } from "@trpc/next";
 import { SessionProvider } from "next-auth/react";
+import PlausibleProvider from "next-plausible";
 import type { AppType } from "next/dist/shared/lib/utils";
 import superjson from "superjson";
 import type { AppRouter } from "../server/router";
@@ -13,9 +14,16 @@ const MyApp: AppType = ({
   pageProps: { session, ...pageProps },
 }) => {
   return (
-    <SessionProvider session={session}>
-      <Component {...pageProps} />
-    </SessionProvider>
+    <PlausibleProvider
+      domain="sevenvsbingo.de"
+      selfHosted
+      customDomain="https://plausible.home.juli.sh"
+      enabled
+    >
+      <SessionProvider session={session}>
+        <Component {...pageProps} />
+      </SessionProvider>
+    </PlausibleProvider>
   );
 };
 

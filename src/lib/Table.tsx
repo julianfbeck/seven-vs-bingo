@@ -1,5 +1,5 @@
 import { Projection } from "@prisma/client";
-import { Constants } from "../utils/constants";
+import { Constants, indexToPoints } from "../utils/constants";
 
 interface PointsProps {
   projections: Projection[];
@@ -74,7 +74,7 @@ const Table = ({
                     {projection.text}
                   </th>
                   <td className="py-4 px-6">
-                    {Constants.PointsPerCorrectEntry}
+                    {indexToPoints(projection.difficulty)}
                   </td>
                 </tr>
               ))}

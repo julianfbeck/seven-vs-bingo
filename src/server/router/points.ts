@@ -1,6 +1,7 @@
 import { createRouter } from "./context";
 import { TRPCError } from "@trpc/server";
-import { Constants } from "../../utils/points";
+import { Constants, indexToPoints } from "../../utils/constants";
+import { BingoEntry, Projection } from "@prisma/client";
 
 export const bingoWinningEntries = [
   //rows
@@ -93,29 +94,46 @@ export const pointsRouter = createRouter()
             projection: true,
           },
         });
-        // get positions that win
+
         const winningPositions = entries
           .filter((e) => e.projection.hasBecomeTrue)
           .map((entry) => entry.position);
-        const bingos = bingoWinningEntries.filter((winningEntry) => {
+
+        // check if any of the winning positions are in the winning entries
+        const positionArray = bingoWinningEntries.filter((winningEntry) => {
           return winningEntry.every((position) =>
             winningPositions.includes(position)
           );
         });
-        const points =
-          Constants.PointsPerCorrectEntry * winningPositions.length;
-        const bingoPoints = Constants.PointsPerCorrectRow * bingos.length;
+        const pointsTotal = entries
+          .filter((entry) => entry.projection.hasBecomeTrue)
+          .reduce((acc, entry) => {
+            return acc + indexToPoints(entry.projection.difficulty);
+          }, 0);
+
+        // calculate points for rings
+        const bingoPoints = positionArray.reduce((acc, row) => {
+          const currentPositions = entries.filter((entry) =>
+            row.includes(entry.position)
+          );
+          const currentPoints = currentPositions.reduce((acc, entry) => {
+            return acc + indexToPoints(entry.projection.difficulty);
+          }, 0);
+
+          return acc + currentPoints * Constants.MultiplierPerBingo;
+        }, 0);
+
         await ctx.prisma.score.upsert({
           where: {
             userId: user.id,
           },
           create: {
             userId: user.id,
-            score: points + bingoPoints,
+            score: pointsTotal + bingoPoints,
             userName: user.name ?? "Unknown User",
           },
           update: {
-            score: points + bingoPoints,
+            score: pointsTotal + bingoPoints,
           },
         });
       }

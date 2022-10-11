@@ -1,5 +1,5 @@
 import { BingoEntry, Projection } from "@prisma/client";
-import { Constants } from "../utils/points";
+import { Constants, indexToPoints, indexToText } from "../utils/constants";
 
 interface PointsProps {
   points: number[][];
@@ -11,19 +11,32 @@ interface PointsProps {
 
 const Points = ({ points, entries, external }: PointsProps) => {
   const calcualtePoints = () => {
-    let total = entries
+    const total = entries
       .filter((entry) => entry.projection.hasBecomeTrue)
-      .reduce((acc) => {
-        return acc + Constants.PointsPerCorrectEntry;
+      .reduce((acc, entry) => {
+        return acc + indexToPoints(entry.projection.difficulty);
       }, 0);
 
-    return (total += points.length * Constants.PointsPerCorrectRow);
+    const bingoPoints = points.reduce((acc, row) => {
+      return acc + calculatePointsPerRow(row);
+    }, 0);
+
+    return total + bingoPoints;
+  };
+  const calculatePointsPerRow = (row: number[]) => {
+    const currentPositions = entries.filter((entry) =>
+      row.includes(entry.position)
+    );
+    const currentPoints = currentPositions.reduce((acc, entry) => {
+      return acc + indexToPoints(entry.projection.difficulty);
+    }, 0);
+
+    return currentPoints * Constants.MultiplierPerBingo;
   };
 
   return (
     <>
       <div className="py-8 px-4 mx-auto max-w-screen-lg lg:py-10 lg:px-12">
-        
         <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl lg:text-6xl text-white">
           {external ? " " : "Deine "}
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-green-700 via-green-500 to-lime-500">
@@ -45,6 +58,11 @@ const Points = ({ points, entries, external }: PointsProps) => {
                         <div className="text-sm leading-5 font-medium text-gray-100">
                           {entries.projection.text}
                         </div>
+                        <div className="text-sm font-thin leading-5 text-gray-300">
+                          {indexToText(entries.projection.difficulty)} {" - "}{" "}
+                          {indexToPoints(entries.projection.difficulty)}
+                          {" Punkte"}
+                        </div>
                       </div>
                     </div>
                   </td>
@@ -54,7 +72,7 @@ const Points = ({ points, entries, external }: PointsProps) => {
                     </div>
                   </td>
                   <td className="pr-5 py-4 whitespace-nowrap text-white text-lg font-bold text-right flex-none ">
-                    + {Constants.PointsPerCorrectEntry}
+                    + {indexToPoints(entries.projection.difficulty)}
                   </td>
                 </tr>
               ))}
@@ -74,6 +92,19 @@ const Points = ({ points, entries, external }: PointsProps) => {
                         <div className="text-lg leading-5 font-medium text-left text-gray-100">
                           Bingo in den Feldern {row.map((field) => field + " ")}
                         </div>
+                        <div className="text-sm font-thin leading-5 text-gray-300">
+                          (
+                          {entries
+                            .filter((entry) => row.includes(entry.position))
+                            .map(
+                              (entry) =>
+                                indexToPoints(entry.projection.difficulty) +
+                                " + "
+                            )
+                            .join("")
+                            .slice(0, -2)}
+                          ) * {Constants.MultiplierPerBingo}
+                        </div>
                       </div>
                     </div>
                   </td>
@@ -83,7 +114,7 @@ const Points = ({ points, entries, external }: PointsProps) => {
                     </div>
                   </td>
                   <td className="pr-5 py-4 whitespace-nowrap text-white text-lg font-bold text-right flex-none ">
-                    + {Constants.PointsPerCorrectRow}
+                    + {calculatePointsPerRow(row)}
                   </td>
                 </tr>
               ))}

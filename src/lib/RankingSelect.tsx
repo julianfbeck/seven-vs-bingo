@@ -13,7 +13,7 @@ import {
   SelectValue,
   SelectViewport,
 } from "./components/SelectStyle";
-import { Constants } from "../utils/points";
+import { Constants } from "../utils/constants";
 
 interface ProjectionSelectProps {
   defaulValue?: string;

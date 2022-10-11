@@ -1,5 +1,5 @@
 import { Projection } from "@prisma/client";
-import { Constants } from "../utils/points";
+import { Constants } from "../utils/constants";
 
 interface PointsProps {
   projections: Projection[];
@@ -49,7 +49,11 @@ const Table = ({
               .map((projection) => (
                 <tr
                   key={projection.id}
-                  className={selectedProjections.get(projection.id)? entryStyleSelected : entryStyle}
+                  className={
+                    selectedProjections.get(projection.id)
+                      ? entryStyleSelected
+                      : entryStyle
+                  }
                   onClick={() => onProjectionClick(projection)}
                 >
                   <td className="p-4 w-4">

@@ -15,9 +15,8 @@ export const Field: React.FC<TextProps> = ({ fieldNumber, projection }) => {
       return <CorrectField fieldNumber={fieldNumber} projection={projection} />;
     } else if (projection) {
       return <NormalField fieldNumber={fieldNumber} projection={projection} />;
-    } else {
-      return <EmptyField />;
     }
+    return <></>;
   }
   return (
     <>
@@ -38,20 +37,10 @@ export const Field: React.FC<TextProps> = ({ fieldNumber, projection }) => {
   );
 };
 
-const EmptyField = () => {
-  return (
-    <div className="container aspect-square rounded-xl p-3 bg-slate-800  opacity-70">
-      <div className="flex flex-col justify-center items-center h-full text-white text-xs hover:decoration-green-500 hover:underline">
-        Bingo Karte hinzufügen
-      </div>
-    </div>
-  );
-};
-
 const NormalField = ({ projection }: TextProps) => {
   return (
     <div className="container aspect-square  rounded-xl  bg-slate-800  text-white border border-white">
-      <div className="flex flex-col justify-center items-center h-full text-white text-xs lg:text-lg hover:decoration-green-500 hover:underline overflow-hidden">
+      <div className="flex flex-col text-[9px] justify-center items-center h-full text-white  sm:text-base hover:decoration-green-500 hover:underline overflow-hidden">
         {projection?.text}
       </div>
     </div>
@@ -61,7 +50,7 @@ const NormalField = ({ projection }: TextProps) => {
 const CorrectField = ({ projection }: TextProps) => {
   return (
     <div className="container aspect-square  rounded-xl bg-green-500  text-white border border-green-900">
-      <div className="flex flex-col justify-center items-center h-full text-white text-xs lg:text-lg hover:decoration-green-500 hover:underline overflow-hidden">
+      <div className="flex flex-col text-[9px] justify-center items-center h-full text-white sm:text-base hover:decoration-green-500 hover:underline overflow-hidden">
         {projection?.text}
       </div>
     </div>

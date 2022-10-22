@@ -52,13 +52,13 @@ const Points = ({ points, entries, external }: PointsProps) => {
                   key={entries.id}
                   className="hover:cursor-pointer hover:bg-gray-700 border-b-2 border-gray-900"
                 >
-                  <td className="px-6 py-2 whitespace-no-wrap round">
+                  <td className="px-3 py-2 whitespace-no-wrap round">
                     <div className="flex items-center">
-                      <div className="ml-3">
-                        <div className="text-sm leading-5 font-medium text-gray-100">
+                      <div>
+                        <div className="text-sm font-medium text-gray-100">
                           {entries.projection.text}
                         </div>
-                        <div className="text-sm font-thin leading-5 text-gray-300">
+                        <div className="text-sm font-thin text-gray-300">
                           {indexToText(entries.projection.difficulty)} {" - "}{" "}
                           {indexToPoints(entries.projection.difficulty)}
                           {" Punkte"}
@@ -66,12 +66,7 @@ const Points = ({ points, entries, external }: PointsProps) => {
                       </div>
                     </div>
                   </td>
-                  <td className="pr-6 py-4 whitespace-nowrap text-right lg:table-cell">
-                    <div className="text-sm leading-5 text-gray-200">
-                      Richtiges Field
-                    </div>
-                  </td>
-                  <td className="pr-5 py-4 whitespace-nowrap text-white text-lg font-bold text-right flex-none ">
+                  <td className="pr-3 py-4 whitespace-nowrap text-white text-lg font-bold text-right flex-none ">
                     + {indexToPoints(entries.projection.difficulty)}
                   </td>
                 </tr>
@@ -86,13 +81,13 @@ const Points = ({ points, entries, external }: PointsProps) => {
                   key={i}
                   className=" bg-gradient-to-r from-green-400 to-blue-500 hover:cursor-pointer hover:bg-gray-700 transform duration-150 last:border-0"
                 >
-                  <td className="px-6 py-4 whitespace-no-wrap ">
+                  <td className="px-3 py-4 whitespace-no-wrap ">
                     <div className="flex items-center">
-                      <div className="ml-3">
+                      <div>
                         <div className="text-lg leading-5 font-medium text-left text-gray-100">
-                          Bingo in den Feldern {row.map((field) => field + " ")}
+                          Bingo: {row.map((field) => field + " ")}
                         </div>
-                        <div className="text-sm font-thin leading-5 text-gray-300">
+                        <div className="text-sm font-thin text-gray-300">
                           (
                           {entries
                             .filter((entry) => row.includes(entry.position))
@@ -108,12 +103,7 @@ const Points = ({ points, entries, external }: PointsProps) => {
                       </div>
                     </div>
                   </td>
-                  <td className="pr-6 py-4 whitespace-nowrap text-right lg:table-cell">
-                    <div className="text-sm leading-5 text-gray-200">
-                      Bingo!
-                    </div>
-                  </td>
-                  <td className="pr-5 py-4 whitespace-nowrap text-white text-lg font-bold text-right flex-none ">
+                  <td className="pr-3 py-4 whitespace-nowrap text-white text-lg font-bold text-right flex-none ">
                     + {calculatePointsPerRow(row)}
                   </td>
                 </tr>
@@ -124,16 +114,16 @@ const Points = ({ points, entries, external }: PointsProps) => {
         <table className="w-full">
           <tbody>
             <tr className=" bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 last:border-0">
-              <td className="px-6 py-4 whitespace-no-wrap ">
+              <td className="px-3 py-4 whitespace-no-wrap ">
                 <div className="flex items-center">
-                  <div className="ml-3">
-                    <div className="text-lg leading-5 font-medium text-gray-100">
+                  <div>
+                    <div className="text-lg font-medium text-gray-100">
                       Punkte insgesamt
                     </div>
                   </div>
                 </div>
               </td>
-              <td className="px-6 py-4 whitespace-nowrap text-white text-lg font-bold text-right flex-none ">
+              <td className="px-3 py-4 whitespace-nowrap text-white text-lg font-bold text-right flex-none ">
                 + {calcualtePoints()}
               </td>
             </tr>

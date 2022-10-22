@@ -21,7 +21,7 @@ const Table = ({
     "border-b bg-green-800 border-green-900   cursor-pointer ";
 
   return (
-    <div className=" px-4 mx-auto max-w-screen-lg lg:px-12">
+    <div className="px-4 mx-auto max-w-screen-lg lg:px-12">
       <div className="overflow-x-auto relative shadow-md rounded-lg">
         <table className="w-full text-sm text-left  text-gray-400">
           <thead className="text-xs  uppercase  bg-gradient-to-b from-green-800 to-green-700 text-gray-100">

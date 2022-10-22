@@ -1,5 +1,6 @@
 import { Projection } from "@prisma/client";
 import { useState } from "react";
+import { indexToPoints } from "../utils/constants";
 import EditProjectionModal from "./EditProjectionModal";
 
 interface AdminProposalProps {
@@ -30,6 +31,9 @@ export const AdminProposal: React.FC<AdminProposalProps> = ({
         <h5 className="mb-2 text-2xl font-bold tracking-tight  text-white">
           {projection.text}
         </h5>
+        <h2 className="text-sm font-bold text-white mb-2">
+          Punkte: {indexToPoints(projection.difficulty)}
+        </h2>
       </div>
 
       <button

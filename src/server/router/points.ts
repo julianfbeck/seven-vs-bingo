@@ -1,7 +1,6 @@
 import { createRouter } from "./context";
 import { TRPCError } from "@trpc/server";
 import { Constants, indexToPoints } from "../../utils/constants";
-import { BingoEntry, Projection } from "@prisma/client";
 
 export const bingoWinningEntries = [
   //rows

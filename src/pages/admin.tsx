@@ -159,7 +159,7 @@ const OldBingoEntries = () => {
           await reCalculatePoints.mutateAsync();
         }}
       >
-        test
+      Punkte neu berechnen
       </button>
       {entries?.map((entry) => (
         <AdminProjectionEntry

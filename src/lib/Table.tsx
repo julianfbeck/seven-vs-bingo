@@ -1,5 +1,5 @@
 import { Projection } from "@prisma/client";
-import { Constants, indexToPoints } from "../utils/constants";
+import { indexToPoints } from "../utils/constants";
 
 interface PointsProps {
   projections: Projection[];
@@ -16,23 +16,25 @@ const Table = ({
   disabled,
   onProjectionClick,
 }: PointsProps) => {
-  const entryStyle =
-    "border-b bg-gray-800 border-gray-700  hover:bg-green-900 cursor-pointer";
+  const entryStyle = "border-b bg-gray-800 border-gray-700  cursor-pointer";
   const entryStyleSelected =
-    "border-b bg-green-800 border-green-900  hover:bg-green-900 cursor-pointer ";
+    "border-b bg-green-800 border-green-900   cursor-pointer ";
 
   return (
     <div className=" px-4 mx-auto max-w-screen-lg lg:px-12">
-      <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
+      <div className="overflow-x-auto relative shadow-md rounded-lg">
         <table className="w-full text-sm text-left  text-gray-400">
           <thead className="text-xs  uppercase  bg-gradient-to-b from-green-800 to-green-700 text-gray-100">
             <tr>
-              <th scope="col" className="p-4">
+              {/* <th scope="col" className="p-4">
                 <div className="flex items-center">
                   {numberSelectedProjections}/25
                 </div>
-              </th>
+              </th> */}
               <th scope="col" className="py-3 px-6">
+                <div className="flex items-center">
+                  {numberSelectedProjections}/25
+                </div>
                 Ereignis
               </th>
               <th scope="col" className="py-3 px-6">
@@ -56,7 +58,7 @@ const Table = ({
                   }
                   onClick={() => onProjectionClick(projection)}
                 >
-                  <td className="p-4 w-4">
+                  {/* <td className="p-4 w-4">
                     <div className="flex items-center">
                       <input
                         id="checkbox-table-search-1"
@@ -66,11 +68,8 @@ const Table = ({
                         disabled={disabled}
                       />
                     </div>
-                  </td>
-                  <th
-                    scope="row"
-                    className="py-4 px-6 font-medium  whitespace-nowrap text-white"
-                  >
+                  </td> */}
+                  <th scope="row" className="py-4 px-6 font-medium text-white">
                     {projection.text}
                   </th>
                   <td className="py-4 px-6">

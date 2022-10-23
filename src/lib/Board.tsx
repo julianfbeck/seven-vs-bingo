@@ -19,11 +19,12 @@ const Board = ({ boardId }: BoardProps) => {
 
   const copyClipboard = async () => {
     const text = window.location.origin + "/board/" + boardId;
-    console.log(text);
     if ("clipboard" in navigator) {
-      return await navigator.clipboard.writeText(text);
+      await navigator.clipboard.writeText(text);
+      alert("Board Link in der Zwischenablage gespeichert");
     } else {
-      return document.execCommand("copy", true, text);
+      document.execCommand("copy", true, text);
+      alert("Board Link in der Zwischenablage gespeichert");
     }
   };
   const getProjection = (field: number) => {

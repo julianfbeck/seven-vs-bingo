@@ -26,7 +26,7 @@ export default function NewProjection() {
               onChange={(e) => setNewProjection(e.target.value)}
               maxLength={50}
             />
-            <div className="absolute right-2 bottom-32 text-white">
+            <div className="absolute right-2 bottom-4  text-white">
               {newProjection.length}/{50}
             </div>
           </div>

@@ -5,7 +5,7 @@ export const Steps = () => {
         <div className="flex flex-wrap w-full">
           <div className=" md:pr-10 py-6">
             <h1 className=" text-3xl mb-10 text-white font-bold leading-tight text-center md:text-left ">
-              Wie funktioniert das Seven vs. Wild Bingo?
+              Wie funktioniert das 7 vs. Wild Bingo?
             </h1>
             <div className="flex relative pb-12">
               <div className="h-full w-10 absolute inset-0 flex items-center justify-center">

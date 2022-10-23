@@ -9,7 +9,6 @@ import Image from "next/image";
 const navigationTemplate = [
   { name: "Start", href: "/", current: true },
   { name: "Bingo", href: "/bingo", current: false },
-  { name: "Ranking", href: "/ranking", current: false },
 ];
 
 function classNames(...classes: string[]) {
@@ -91,7 +90,9 @@ export default function Navbar() {
                     <button
                       type="button"
                       className="text-white bg-[#635def] hover:bg-[#635def]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center focus:ring-[#3b5998]/55 mr-2"
-                      onClick={() => signIn("discord", { callbackUrl: "/bingo" })}
+                      onClick={() =>
+                        signIn("discord", { callbackUrl: "/bingo" })
+                      }
                     >
                       Anmelden
                       <Icon
@@ -138,7 +139,7 @@ export default function Navbar() {
                                 signOut();
                               }}
                             >
-                              Sign out
+                              Abmelden
                             </button>
                           )}
                         </Menu.Item>

@@ -2,6 +2,7 @@ import type { GetServerSideProps, NextPage } from "next";
 import { getSession } from "next-auth/react";
 import Board from "../lib/Board";
 import { CreateBoard } from "../lib/CreateBoard";
+import { CreateBoardTemp } from "../lib/CreateBoardTemp";
 import { CustomHeader } from "../lib/CustomHeader";
 import Navbar from "../lib/navbar";
 import { prisma } from "../server/db/client";
@@ -54,7 +55,7 @@ export const getServerSideProps: GetServerSideProps<BingoPageProps> = async (
 const Bingo: NextPage<BingoPageProps> = ({ count, boardId }) => {
   const getState = () => {
     if (count === 0) {
-      return <CreateBoard />;
+      return <CreateBoardTemp />;
     } else if (count === 25) {
       return <Board boardId={boardId || "Unknown"} />;
     } else {

@@ -13,8 +13,6 @@ const Table = ({
   projections,
   selectedProjections,
   numberSelectedProjections,
-  disabled,
-  onProjectionClick,
 }: PointsProps) => {
   const entryStyle = "border-b bg-gray-800 border-gray-700  cursor-pointer";
   const entryStyleSelected =
@@ -56,19 +54,7 @@ const Table = ({
                       ? entryStyleSelected
                       : entryStyle
                   }
-                  onClick={() => onProjectionClick(projection)}
                 >
-                  {/* <td className="p-4 w-4">
-                    <div className="flex items-center">
-                      <input
-                        id="checkbox-table-search-1"
-                        type="checkbox"
-                        checked={selectedProjections.get(projection.id)}
-                        onClick={() => onProjectionClick(projection)}
-                        disabled={disabled}
-                      />
-                    </div>
-                  </td> */}
                   <th scope="row" className="py-4 px-6 font-medium text-white">
                     {projection.text}
                   </th>

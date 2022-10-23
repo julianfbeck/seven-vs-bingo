@@ -21,15 +21,6 @@ export const CreateBoardTemp = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const selectRandomProjections = () => {
-    const map = new Map();
-    entries?.forEach((entry) => map.set(entry.id, false));
-    const randomEntries = entries?.sort(() => 0.5 - Math.random());
-    const selectedEntries = randomEntries?.slice(0, 25);
-    selectedEntries?.forEach((entry) => map.set(entry.id, true));
-    setSelectedProjections(map);
-  };
-
   const selectBingoEntries = async () => {
     const selectedEntries = entries?.filter((entry) =>
       selectedProjections.get(entry.id)

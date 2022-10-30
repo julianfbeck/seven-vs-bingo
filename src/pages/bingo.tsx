@@ -14,40 +14,40 @@ interface BingoPageProps {
 export const getServerSideProps: GetServerSideProps<BingoPageProps> = async (
   context
 ) => {
-  const session = await getSession(context);
-  if (!session) {
-    return {
-      redirect: {
-        destination: "api/auth/signin",
-        permanent: false,
-      },
-    };
-  }
-  let count = await prisma.bingoEntry.count({
-    where: {
-      userId: session?.user?.id,
-    },
-  });
+  // const session = await getSession(context);
+  // if (!session) {
+  //   return {
+  //     redirect: {
+  //       destination: "api/auth/signin",
+  //       permanent: false,
+  //     },
+  //   };
+  // }
+  // let count = await prisma.bingoEntry.count({
+  //   where: {
+  //     userId: session?.user?.id,
+  //   },
+  // });
 
-  //reset board for undefined state
-  if (count !== 0 && count !== 25) {
-    await prisma.bingoEntry.deleteMany({
-      where: {
-        userId: session?.user?.id,
-      },
-    });
-    count = 0;
-  }
-  const user = await prisma.user.findUnique({
-    where: {
-      id: session?.user?.id || "",
-    },
-  });
+  // //reset board for undefined state
+  // if (count !== 0 && count !== 25) {
+  //   await prisma.bingoEntry.deleteMany({
+  //     where: {
+  //       userId: session?.user?.id,
+  //     },
+  //   });
+  //   count = 0;
+  // }
+  // const user = await prisma.user.findUnique({
+  //   where: {
+  //     id: session?.user?.id || "",
+  //   },
+  // });
 
   return {
     props: {
-      count: count,
-      boardId: user?.shareId || "Undefined",
+     count: 0, // count: count,
+     boardId: ""// boardId: user?.shareId || "Undefined",
     },
   };
 };

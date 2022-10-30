@@ -58,7 +58,7 @@ export const CreateBoardTemp = () => {
           </span>{" "}
         </p>{" "}
         <p className="mt-5 text-lg font-normal lg:text-xl sm:px-16 xl:px-48 text-gray-400">
-          Warte bis zum 1.November! Erst dann kannst du dein eigenens Board
+          Warte bis zum 5. November! Erst dann kannst du dein eigenens Board
           erstellen.
         </p>
       </div>
@@ -68,16 +68,15 @@ export const CreateBoardTemp = () => {
           selectedProjections={selectedProjections}
           projections={entries || []}
           disabled={true}
+          // eslint-disable-next-line @typescript-eslint/no-empty-function
           onProjectionClick={(projection: Projection) => {
-            const map = new Map(selectedProjections);
-            map.set(projection.id, !map.get(projection.id));
-            setSelectedProjections(map);
+           
           }}
         />
       </div>
       <div className="flex items-center justify-center">
         <p className="mt-5 text-lg font-normal lg:text-xl sm:px-16 xl:px-48 text-gray-400">
-          Warte bis zum 1.November! Erst dann kannst du dein eigenens Board
+          Warte bis zum 5. November! Erst dann kannst du dein eigenens Board
           erstellen.
         </p>
       </div>

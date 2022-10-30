@@ -12,6 +12,7 @@ interface PointsProps {
 const Table = ({
   projections,
   selectedProjections,
+  onProjectionClick,
   numberSelectedProjections,
 }: PointsProps) => {
   const entryStyle = "border-b bg-gray-800 border-gray-700  cursor-pointer";
@@ -54,6 +55,7 @@ const Table = ({
                       ? entryStyleSelected
                       : entryStyle
                   }
+                  onClick={() => onProjectionClick(projection)}
                 >
                   <th scope="row" className="py-4 px-6 font-medium text-white">
                     {projection.text}

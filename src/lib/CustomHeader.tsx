@@ -13,7 +13,7 @@ export const CustomHeader: React.FC<HeadProps> = ({ title }) => {
       <meta property="og:title" content={title} />
       <meta
         property="og:description"
-        content="Create your own Bingo Card for the second season of Seven vs. Wild"
+        content="Erstelle dein eigenes 7 vs. Wild Bingo Spiel"
       />
       <meta property="og:url" content="https://sevenvsbingo.de/" />
       <meta property="og:type" content="website" />

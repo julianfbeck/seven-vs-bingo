@@ -30,13 +30,6 @@ const Bingo: NextPage = () => {
             >
               julianfbeck
             </a>{" "}
-            und{" "}
-            <a
-              href="https://twitter.com/7vsWildBingo"
-              className="underline decoration-lime-500 font-bold"
-            >
-              faselbach
-            </a>
             .
           </p>
         </div>

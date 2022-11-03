@@ -151,6 +151,20 @@ const OldBingoEntries = () => {
     },
   });
 
+  const deleteEntry = trpc.useMutation("projection.auth.Delete", {
+    onMutate: () => {
+      ctx.cancelQuery(["projection.getAll"]);
+
+      const optimisticUpdate = ctx.getQueryData(["projection.getAll"]);
+      if (optimisticUpdate) {
+        ctx.setQueryData(["projection.getAll"], optimisticUpdate);
+      }
+    },
+    onSettled: () => {
+      ctx.invalidateQueries(["projection.getAll"]);
+    },
+  });
+
   return (
     <>
       <button
@@ -159,7 +173,7 @@ const OldBingoEntries = () => {
           await reCalculatePoints.mutateAsync();
         }}
       >
-      Punkte neu berechnen
+        Punkte neu berechnen
       </button>
       {entries?.map((entry) => (
         <AdminProjectionEntry
@@ -168,6 +182,11 @@ const OldBingoEntries = () => {
           projection={entry}
           onHasBecomeTrue={async () =>
             await hasBecomeTrue.mutateAsync({
+              id: entry.id,
+            })
+          }
+          onHasBeenDeleted={async () =>
+            await deleteEntry.mutateAsync({
               id: entry.id,
             })
           }

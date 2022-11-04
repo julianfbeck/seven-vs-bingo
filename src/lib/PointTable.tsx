@@ -10,8 +10,8 @@ const PointTable = ({ score }: PointsProps) => {
   const entryStyle = "border-b bg-gray-800 border-gray-700  cursor-pointer";
   return (
     <div className="px-2 mx-auto max-w-screen-lg lg:px-12">
-      <div className="overflow-x-auto relative shadow-md rounded-lg">
-        <table className="w-full text-sm text-left  text-gray-400">
+      <div className="overflow-hidden relative shadow-md rounded-lg">
+        <table className="table-auto w-full text-sm text-left  text-gray-400">
           <thead className="text-xs  uppercase  bg-gradient-to-b from-green-800 to-green-700 text-gray-100">
             <tr>
               <th scope="col" className="p-4">
@@ -35,7 +35,7 @@ const PointTable = ({ score }: PointsProps) => {
                   className={
                     session?.user?.id == user.userId
                       ? "py-3 px-6 font-bold text-green-700"
-                      : "py-3 px-6"
+                      : "py-3 px-6 max-w-0 w-full whitespace-nowrap overflow-hidden overflow-ellipsis"
                   }
                 >
                   {user.userName}

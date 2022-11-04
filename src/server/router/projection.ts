@@ -13,6 +13,17 @@ export const projectionRouter = createRouter()
       });
     },
   })
+
+  .query("getAll.current", {
+    async resolve({ ctx }) {
+      return await ctx.prisma.projection.findMany({
+        where: {
+          isApproved: true,
+          hasBecomeTrue: false,
+        },
+      });
+    },
+  })
   .mutation("Insert", {
     input: z.object({
       text: z.string(),

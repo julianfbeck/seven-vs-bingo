@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { Typewriter } from "react-simple-typewriter";
 import { CustomHeader } from "../lib/CustomHeader";
 import Navbar from "../lib/navbar";
@@ -49,11 +50,15 @@ const Home: NextPage = () => {
                 Bingo
               </h1>
               <p className="leading-normal text-base md:text-2xl mb-8 text-center md:text-left text-gray-500">
-                Füge hier deine Ideen für das Seven vs. Wild Bingo ein und
-                erstelle dir eine eigene Bingo Karte für die zweite Staffel von
-                Seven vs. Wild.
+                Danke für deine Ideen! Wir haben sie alle gesammelt und du
+                kannst jetzt dein eigenes Bingo-Board erstellen.
               </p>
-              <Projections />
+              {/* <Projectio ns /> */}
+              <Link href={"/bingo"}>
+                <button className="button py-4 px-4 items-center text-sm font-medium text-center text-white bg-gradient-to-r from-green-700 to-green-500  rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-800 mr-2 ml-1">
+                  Erstelle jetzt dein eignes Board
+                </button>
+              </Link>
             </div>
             <div className="w-full xl:w-3/5 lg:w-1/3 overflow-hidden justify-center hidden pl-10 lg:block">
               <Image
@@ -66,6 +71,16 @@ const Home: NextPage = () => {
             </div>
           </div>
         </div>
+        {/* <div className="container max-w-screen-xl  mx-auto flex flex-wrap mt-10">
+          <div className="flex flex-wrap w-full justify-center md:justify-start">
+            <Link href={"/bingo"}>
+              <button className="button py-4 px-4 items-center text-sm font-medium text-center text-white bg-gradient-to-r from-green-700 to-green-500  rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-800 mr-2 ml-1">
+                Erstelle jetzt dein eignes Board
+              </button>
+            </Link>
+          </div>
+        </div> */}
+
         <Steps />
         <div className="container mx-auto">
           <div className="grid grid-cols-1 content-center md:grid-cols-2 gap-3 ">

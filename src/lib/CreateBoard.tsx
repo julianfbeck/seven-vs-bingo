@@ -6,7 +6,7 @@ import ConfirmModal from "./ConfirmModal";
 import Table from "./Table";
 
 export const CreateBoard = () => {
-  const { data: entries } = trpc.useQuery(["projection.getAll"]);
+  const { data: entries } = trpc.useQuery(["projection.getAll.current"]);
   const postBingoInsert = trpc.useMutation("auth.bingoEntriesGenerate");
   const router = useRouter();
   const [numberSelectedProjections, setNumberSelectedProjections] = useState(0);

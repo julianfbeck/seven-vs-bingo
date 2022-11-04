@@ -51,6 +51,46 @@ export const bingoEntriesRouter = createRouter()
       });
     },
   })
+  .query("Feedback.get", {
+    async resolve({ ctx }) {
+      if (!ctx.session?.user?.id) {
+        throw new TRPCError({ code: "UNAUTHORIZED" });
+      }
+      return await ctx.prisma.feedback.findMany();
+    },
+  })
+  .mutation("Feedback", {
+    input: z.object({
+      text: z.string(),
+    }),
+    async resolve({ ctx, input }) {
+      if (!ctx.session?.user?.id) {
+        throw new TRPCError({ code: "UNAUTHORIZED" });
+      }
+      await ctx.prisma.feedback.create({
+        data: {
+          text: input.text,
+          userId: ctx.session.user.id,
+        },
+      });
+    },
+  })
+  .mutation("Feedback.delete", {
+    input: z.object({
+      id: z.string(),
+    }),
+    async resolve({ ctx, input }) {
+      if (!ctx.session?.user?.id) {
+        throw new TRPCError({ code: "UNAUTHORIZED" });
+      }
+      await ctx.prisma.feedback.delete({
+        where: {
+          id: input.id,
+        },
+      });
+    },
+  })
+
   .mutation("Generate", {
     input: z.object({
       projections: z.array(z.string()),

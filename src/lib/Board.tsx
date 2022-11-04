@@ -5,13 +5,16 @@ import {
   TransformComponent,
   TransformWrapper,
 } from "@pronestor/react-zoom-pan-pinch";
+import { useState } from "react";
+import FeedbackModal from "./FeedbackModal";
 interface BoardProps {
   boardId: string;
 }
 const Board = ({ boardId }: BoardProps) => {
   const { data: entries, isLoading } = trpc.useQuery(["auth.bingoEntriesget"]);
   const { data: points } = trpc.useQuery(["auth.points.get"]);
-
+  const [feedbackVisibla, setFeedbackVisible] = useState(false);
+  const sendFeedback = trpc.useMutation("auth.bingoEntriesFeedback");
   const fields = [
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
     22, 23, 24, 25,
@@ -61,6 +64,24 @@ const Board = ({ boardId }: BoardProps) => {
             </div>
           </TransformComponent>
         </TransformWrapper>
+      </div>
+      <div className="py-8 px-4 mx-auto max-w-screen-lg lg:py-10 lg:px-12">
+        <div className="flex flex-wrap w-full justify-center">
+          <button
+            className="button py-4 px-4 items-center text-sm font-medium text-center text-white bg-gradient-to-r from-green-700 to-green-500  rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-800 mr-2 ml-1"
+            onClick={() => setFeedbackVisible(true)}
+          >
+            Ereignis noch nicht eingetragen? Schreib uns!
+          </button>
+        </div>
+        <FeedbackModal
+          isOpen={feedbackVisibla}
+          onClose={() => setFeedbackVisible(false)}
+          onSend={async (text: string) => {
+            await sendFeedback.mutateAsync({ text });
+            setFeedbackVisible(false);
+          }}
+        />
       </div>
       {points && entries && <Points entries={entries} points={points} />}
     </>

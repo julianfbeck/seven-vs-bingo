@@ -8,6 +8,7 @@ import Navbar from "../lib/navbar";
 import { TabBar } from "../lib/TabBar";
 import { trpc } from "../utils/trpc";
 import { prisma } from "../server/db/client";
+import { FeedbackEntry } from "../lib/FeedbackEntry";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context);
@@ -50,8 +51,8 @@ const Admin: NextPage = () => {
         return <BingoEntries />;
       case "felder":
         return <OldBingoEntries />;
-      case "dashboard":
-        return <button />;
+      case "feedback":
+        return <Feedback />;
     }
   };
 
@@ -151,20 +152,6 @@ const OldBingoEntries = () => {
     },
   });
 
-  const deleteEntry = trpc.useMutation("projection.auth.Delete", {
-    onMutate: () => {
-      ctx.cancelQuery(["projection.getAll"]);
-
-      const optimisticUpdate = ctx.getQueryData(["projection.getAll"]);
-      if (optimisticUpdate) {
-        ctx.setQueryData(["projection.getAll"], optimisticUpdate);
-      }
-    },
-    onSettled: () => {
-      ctx.invalidateQueries(["projection.getAll"]);
-    },
-  });
-
   return (
     <>
       <button
@@ -185,6 +172,37 @@ const OldBingoEntries = () => {
               id: entry.id,
             })
           }
+        />
+      ))}
+    </>
+  );
+};
+
+const Feedback = () => {
+  const { data: entries } = trpc.useQuery(["auth.bingoEntriesFeedback.get"]);
+  const ctx = trpc.useContext();
+  const deleteEntry = trpc.useMutation("auth.bingoEntriesFeedback.delete", {
+    onMutate: () => {
+      ctx.cancelQuery(["auth.bingoEntriesFeedback.get"]);
+
+      const optimisticUpdate = ctx.getQueryData([
+        "auth.bingoEntriesFeedback.get",
+      ]);
+      if (optimisticUpdate) {
+        ctx.setQueryData(["auth.bingoEntriesFeedback.get"], optimisticUpdate);
+      }
+    },
+    onSettled: () => {
+      ctx.invalidateQueries(["auth.bingoEntriesFeedback.get"]);
+    },
+  });
+
+  return (
+    <>
+      {entries?.map((entry) => (
+        <FeedbackEntry
+          key={entry.id}
+          feedback={entry}
           onHasBeenDeleted={async () =>
             await deleteEntry.mutateAsync({
               id: entry.id,

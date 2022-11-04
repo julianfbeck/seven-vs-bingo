@@ -29,11 +29,11 @@ export const TabBar = ({ changeTab, currentTab }: TabBarProps) => {
         </li>
         <li className="mr-2">
           <div
-            className={currentTab === "dashboard" ? activeClass : inactiveClass}
+            className={currentTab === "feedback" ? activeClass : inactiveClass}
             aria-current="page"
-            onClick={() => changeTab("dashboard")}
+            onClick={() => changeTab("feedback")}
           >
-            Dashboard
+            Feedback
           </div>
         </li>
       </ul>

@@ -4,7 +4,6 @@ import Link from "next/link";
 import { Typewriter } from "react-simple-typewriter";
 import { CustomHeader } from "../lib/CustomHeader";
 import Navbar from "../lib/navbar";
-import Projections from "../lib/NewProjection";
 import { ProjectionList } from "../lib/ProjectionList";
 import ScoreBoard from "../lib/ScoreBoard";
 import { Steps } from "../lib/Steps";
@@ -71,15 +70,6 @@ const Home: NextPage = () => {
             </div>
           </div>
         </div>
-        {/* <div className="container max-w-screen-xl  mx-auto flex flex-wrap mt-10">
-          <div className="flex flex-wrap w-full justify-center md:justify-start">
-            <Link href={"/bingo"}>
-              <button className="button py-4 px-4 items-center text-sm font-medium text-center text-white bg-gradient-to-r from-green-700 to-green-500  rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-800 mr-2 ml-1">
-                Erstelle jetzt dein eignes Board
-              </button>
-            </Link>
-          </div>
-        </div> */}
 
         <Steps />
         <div className="container mx-auto">

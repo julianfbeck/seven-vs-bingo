@@ -48,27 +48,28 @@ model Session {
 }
 
 model User {
-    id            String    @id @default(cuid())
-    createdAt     DateTime  @default(now())
-    updatedAt     DateTime  @updatedAt
+    id            String     @id @default(cuid())
+    createdAt     DateTime   @default(now())
+    updatedAt     DateTime   @updatedAt
     name          String?
-    email         String?   @unique
+    email         String?    @unique
     password      String?
     emailVerified DateTime?
     image         String?
-    role          String?   @default("user")
-    shareId       String?   @unique
+    role          String?    @default("user")
+    shareId       String?    @unique
     accounts      Account[]
     sessions      Session[]
     Ranking       Ranking?
     Score         Score?
+    Feedback      Feedback[]
 }
 
 model Score {
     id        String   @id @default(cuid())
     userId    String   @unique
     user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-    userName  String   
+    userName  String
     score     Int      @default(0)
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
@@ -104,6 +105,15 @@ model Ranking {
     candidateSevenRanking Int
     userId                String   @unique
     user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Feedback {
+    id        String   @id @default(cuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    text      String   @db.VarChar(500)
+    userId    String
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model BingoEntry {

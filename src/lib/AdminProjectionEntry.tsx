@@ -6,7 +6,6 @@ import EditProjectionModal from "./EditProjectionModal";
 interface AdminProposalProps {
   projection: Projection;
   onHasBecomeTrue: () => void;
-  onHasBeenDeleted: () => void;
   reloadData: () => void;
 }
 
@@ -14,7 +13,6 @@ export const AdminProjectionEntry: React.FC<AdminProposalProps> = ({
   projection,
   onHasBecomeTrue,
   reloadData,
-  onHasBeenDeleted,
 }) => {
   const [editMode, setEditMode] = useState(false);
   return (

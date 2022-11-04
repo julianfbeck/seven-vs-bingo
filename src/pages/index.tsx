@@ -55,7 +55,7 @@ const Home: NextPage = () => {
               {/* <Projectio ns /> */}
               <Link href={"/bingo"}>
                 <button className="button py-4 px-4 items-center text-sm font-medium text-center text-white bg-gradient-to-r from-green-700 to-green-500  rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-800 mr-2 ml-1">
-                  Erstelle jetzt dein eignes Board
+                  Erstelle jetzt dein eigenes Board
                 </button>
               </Link>
             </div>

@@ -36,7 +36,7 @@ const PointTable = ({ score }: PointsProps) => {
                   const bordId = await getUserId.mutateAsync({
                     userId: user.userId,
                   });
-                  window.open(`/board/${bordId}`);
+                  window.location.assign(`/board/${bordId}`);
                 }}
               >
                 <th scope="row" className="py-4 px-6 font-medium text-white">

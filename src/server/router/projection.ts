@@ -21,6 +21,9 @@ export const projectionRouter = createRouter()
           isApproved: true,
           hasBecomeTrue: false,
         },
+        orderBy: {
+          difficulty: "asc",
+        },
       });
     },
   })

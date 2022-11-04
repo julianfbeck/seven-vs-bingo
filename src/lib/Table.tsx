@@ -42,29 +42,24 @@ const Table = ({
             </tr>
           </thead>
           <tbody>
-            {projections
-              .sort(
-                (a, b) =>
-                  Number(new Date(a.createdAt)) - Number(new Date(b.createdAt))
-              )
-              .map((projection) => (
-                <tr
-                  key={projection.id}
-                  className={
-                    selectedProjections.get(projection.id)
-                      ? entryStyleSelected
-                      : entryStyle
-                  }
-                  onClick={() => onProjectionClick(projection)}
-                >
-                  <th scope="row" className="py-4 px-6 font-medium text-white">
-                    {projection.text}
-                  </th>
-                  <td className="py-4 px-6">
-                    {indexToPoints(projection.difficulty)}
-                  </td>
-                </tr>
-              ))}
+            {projections.map((projection) => (
+              <tr
+                key={projection.id}
+                className={
+                  selectedProjections.get(projection.id)
+                    ? entryStyleSelected
+                    : entryStyle
+                }
+                onClick={() => onProjectionClick(projection)}
+              >
+                <th scope="row" className="py-4 px-6 font-medium text-white">
+                  {projection.text}
+                </th>
+                <td className="py-4 px-6">
+                  {indexToPoints(projection.difficulty)}
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

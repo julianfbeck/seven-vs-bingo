@@ -22,12 +22,26 @@ export const CreateBoard = () => {
   }, []);
 
   const selectRandomProjections = () => {
-    const map = new Map();
-    entries?.forEach((entry) => map.set(entry.id, false));
-    const randomEntries = entries?.sort(() => 0.5 - Math.random());
-    const selectedEntries = randomEntries?.slice(0, 25);
-    selectedEntries?.forEach((entry) => map.set(entry.id, true));
-    setSelectedProjections(map);
+    // const map = new Map();
+    // entries?.forEach((entry) => map.set(entry.id, false));
+    // const randomEntries = entries?.sort(() => 0.5 - Math.random());
+    // const selectedEntries = randomEntries?.slice(0, 25);
+    // selectedEntries?.forEach((entry) => map.set(entry.id, true));
+    // setSelectedProjections(map);
+    if (entries) {
+      const map = new Map();
+      entries?.forEach((entry) => map.set(entry.id, false));
+      const randomEntries = [...entries]
+        ?.map((value) => ({ value, sort: Math.random() }))
+        .sort((a, b) => a.sort - b.sort)
+        .map(({ value }) => value);
+      const selectedEntries = randomEntries?.slice(0, 25);
+      selectedEntries?.forEach((entry) => map.set(entry.id, true));
+      setSelectedProjections(map);
+      //print all the entries
+      console.log("entries", entries);
+      console.log(map);
+    }
   };
 
   const selectBingoEntries = async () => {

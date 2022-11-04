@@ -1,10 +1,7 @@
 import { trpc } from "../utils/trpc";
 import { Field } from "./Field";
 import Points from "./Points";
-import {
-  TransformComponent,
-  TransformWrapper,
-} from "@pronestor/react-zoom-pan-pinch";
+
 import { useState } from "react";
 import FeedbackModal from "./FeedbackModal";
 interface BoardProps {
@@ -50,20 +47,16 @@ const Board = ({ boardId }: BoardProps) => {
         </button>
       </div>
       <div className="max-w-screen-sm mx-auto container p-2">
-        <TransformWrapper>
-          <TransformComponent>
-            <div className="grid grid-cols-5 gap-2 overflow-visible">
-              {!isLoading &&
-                fields.map((field) => (
-                  <Field
-                    key={field}
-                    fieldNumber={field}
-                    projection={getProjection(field)}
-                  />
-                ))}
-            </div>
-          </TransformComponent>
-        </TransformWrapper>
+        <div className="grid grid-cols-5 gap-2 overflow-visible">
+          {!isLoading &&
+            fields.map((field) => (
+              <Field
+                key={field}
+                fieldNumber={field}
+                projection={getProjection(field)}
+              />
+            ))}
+        </div>
       </div>
       <div className="py-8 px-4 mx-auto max-w-screen-lg lg:py-10 lg:px-12">
         <div className="flex flex-wrap w-full justify-center">

@@ -41,7 +41,7 @@ const ConfirmModal: React.FC<SelectProjectionModalProps> = ({
                 await onGenerate();
               }}
             >
-              Zufälliges Board erstellen
+              Board erstellen
             </button>
           </DialogClose>
           <DialogClose asChild>

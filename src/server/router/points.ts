@@ -31,6 +31,15 @@ export const pointsRouter = createRouter()
       });
     },
   })
+  .query("highscore.all", {
+    async resolve({ ctx }) {
+      return await ctx.prisma.score.findMany({
+        orderBy: {
+          score: "desc",
+        },
+      });
+    },
+  })
 
   .middleware(async ({ ctx, next }) => {
     // Any queries or mutations after this middleware will

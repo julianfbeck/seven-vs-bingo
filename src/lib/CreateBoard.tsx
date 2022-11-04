@@ -38,9 +38,6 @@ export const CreateBoard = () => {
       const selectedEntries = randomEntries?.slice(0, 25);
       selectedEntries?.forEach((entry) => map.set(entry.id, true));
       setSelectedProjections(map);
-      //print all the entries
-      console.log("entries", entries);
-      console.log(map);
     }
   };
 

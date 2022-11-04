@@ -38,8 +38,28 @@ export const Field: React.FC<TextProps> = ({ fieldNumber, projection }) => {
 };
 
 const NormalField = ({ projection }: TextProps) => {
+  const getBorderColor = () => {
+    if (!projection) {
+      return "border-white";
+    }
+    switch (projection.difficulty) {
+      case 0:
+        return "border-green-white";
+      case 1:
+        return "border-amber-300";
+      case 2:
+        return "border-purple-400";
+      default:
+        return "border-gray-900";
+    }
+  };
   return (
-    <div className="container aspect-square  rounded-xl  bg-slate-800  text-white border border-white">
+    <div
+      className={
+        "container aspect-square  rounded-xl border-  bg-slate-800  text-white border " +
+        getBorderColor()
+      }
+    >
       <div className="flex flex-col text-[9px] justify-center items-center h-full text-white  sm:text-base hover:decoration-green-500 hover:underline overflow-hidden">
         {projection?.text}
       </div>

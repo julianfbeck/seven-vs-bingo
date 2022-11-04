@@ -10,7 +10,8 @@ import {
   IconButton,
 } from "./components/ModalStyle";
 import { Projection } from "@prisma/client";
-
+import { indexToText, indexToPoints } from "../utils/constants";
+import { DialogDescription } from "@radix-ui/react-dialog";
 // Your app...
 const Flex = styled("div", { display: "flex" });
 
@@ -33,6 +34,12 @@ const SelectProjectionModal: React.FC<SelectProjectionModalProps> = ({
       <DialogContent>
         <DialogTitle>Bingo Ereigniss {fieldNumber}:</DialogTitle>
         <DialogTitle>{projection.text}</DialogTitle>
+        <div className="text-white mt-3">
+          <DialogDescription>
+            {indexToText(projection.difficulty)} -{" "}
+            {indexToPoints(projection.difficulty)} Punkte
+          </DialogDescription>
+        </div>
         <Fieldset></Fieldset>
         <Flex css={{ marginTop: 25, justifyContent: "flex-end" }}>
           <DialogClose asChild>

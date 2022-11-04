@@ -1,10 +1,12 @@
 import { Score } from "@prisma/client";
+import { useSession } from "next-auth/react";
 
 interface PointsProps {
   score: Score[];
 }
 
 const PointTable = ({ score }: PointsProps) => {
+  const { data: session } = useSession();
   const entryStyle = "border-b bg-gray-800 border-gray-700  cursor-pointer";
   return (
     <div className="px-2 mx-auto max-w-screen-lg lg:px-12">
@@ -29,7 +31,15 @@ const PointTable = ({ score }: PointsProps) => {
                 <th scope="row" className="py-4 px-6 font-medium text-white">
                   {index + 1}
                 </th>
-                <td className="py-4 px-6">{user.userName}</td>
+                <td
+                  className={
+                    session?.user?.id == user.userId
+                      ? "py-3 px-6 font-bold text-green-700"
+                      : "py-3 px-6"
+                  }
+                >
+                  {user.userName}
+                </td>
                 <td className="px-6 text-right">{user.score}</td>
               </tr>
             ))}

@@ -39,7 +39,7 @@ const Bingo: NextPage = () => {
               Datenschutz
             </span>
           </h1>
-          <div className="text font-normal  sm:px-16 xl:px-48 text-gray-400">
+          <div className="text font-normal  sm:px-16 xl:px-48 text-gray-400 mt-10">
             <p>
               Bei sevenvsbingo.de, erreichbar über https://sevenvsbingo.de, ist
               eine unserer wichtigsten Prioritäten ist der Schutz der
@@ -117,20 +117,6 @@ const Bingo: NextPage = () => {
               <li>Das Recht auf Datenübertragbarkeit</li>
               <li>Das Recht auf Widerruf der Einwilligung</li>
             </ul>
-            <h2 className="text-lg mt-3 mb-3 font-bold">Log Files</h2>
-            <p className="mt-3">
-              sevenvsbingo.de folgt einem Standardverfahren zur Verwendung von
-              Protokolldateien. Diese Dateien protokollieren Besucher, wenn sie
-              Websites besuchen. Alle Hosting Unternehmen tun dies und einen
-              Teil der Analyse von Hosting-Diensten. Das Informationen, die von
-              Protokolldateien erfasst werden, umfassen das Internetprotokoll
-              (IP) Adressen, Browsertyp, Internet Service Provider (ISP), Datum
-              u Zeitstempel, Verweis-/Ausstiegsseiten und ggf. die Anzahl der
-              Klicks. Diese sind nicht mit personenbezogenen Daten verknüpft
-              identifizierbar. Die Informationen dienen der Analyse Trends,
-              Verwaltung der Website, Verfolgung der Benutzerbewegungen auf der
-              Website und das Sammeln demografischer Informationen.
-            </p>
             <h2 className="text-lg mt-3 mb-3 font-bold">
               Cookies and Web Beacons
             </h2>
@@ -148,6 +134,19 @@ const Bingo: NextPage = () => {
             Für weitere Informationen kontaktieren Sie mich unter
             mail@julianbeck.com
           </div>
+          <h1 className="pt-10  sm:px-16 xl:px-48 text-4xl font-extrabold tracking-tight leading-none md:text-5xl lg:text-6xl text-white">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-green-700 via-green-500 to-lime-500">
+              Impressum
+            </span>
+          </h1>
+          <p className="text font-normal  sm:px-16 xl:px-48 text-gray-400 mt-10">
+            Julian Beck <br />
+            Erich-Heckel Weg 1 <br />
+            71679 Asperg <br />
+            Deutschland <br />
+            E-Mail:
+            <a href="mailto:mail@julianbeck.com">mail@julianbeck.com</a>
+          </p>
         </div>
       </main>
     </>

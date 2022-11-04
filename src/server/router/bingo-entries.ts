@@ -96,7 +96,6 @@ export const bingoEntriesRouter = createRouter()
       projections: z.array(z.string()),
     }),
     async resolve({ ctx, input }) {
-      console.log("input", input);
       if (input.projections.length !== 25) {
         throw new TRPCError({ code: "BAD_REQUEST" });
       }

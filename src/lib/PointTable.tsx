@@ -7,7 +7,7 @@ interface PointsProps {
 const PointTable = ({ score }: PointsProps) => {
   const entryStyle = "border-b bg-gray-800 border-gray-700  cursor-pointer";
   return (
-    <div className="px-4 mx-auto max-w-screen-lg lg:px-12">
+    <div className="px-2 mx-auto max-w-screen-lg lg:px-12">
       <div className="overflow-x-auto relative shadow-md rounded-lg">
         <table className="w-full text-sm text-left  text-gray-400">
           <thead className="text-xs  uppercase  bg-gradient-to-b from-green-800 to-green-700 text-gray-100">
@@ -18,7 +18,7 @@ const PointTable = ({ score }: PointsProps) => {
               <th scope="col" className="py-3 px-6">
                 Benutzer
               </th>
-              <th scope="col" className="py-3 px-6">
+              <th scope="col" className="px-6 text-right">
                 Punkte
               </th>
             </tr>
@@ -30,7 +30,7 @@ const PointTable = ({ score }: PointsProps) => {
                   {index + 1}
                 </th>
                 <td className="py-4 px-6">{user.userName}</td>
-                <td className="py-4 px-6">{user.score}</td>
+                <td className="px-6 text-right">{user.score}</td>
               </tr>
             ))}
           </tbody>

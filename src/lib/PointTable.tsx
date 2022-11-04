@@ -1,5 +1,6 @@
 import { Score } from "@prisma/client";
 import { useSession } from "next-auth/react";
+import { trpc } from "../utils/trpc";
 
 interface PointsProps {
   score: Score[];
@@ -8,6 +9,7 @@ interface PointsProps {
 const PointTable = ({ score }: PointsProps) => {
   const { data: session } = useSession();
   const entryStyle = "border-b bg-gray-800 border-gray-700  cursor-pointer";
+  const getUserId = trpc.useMutation("auth.pointsOpen");
   return (
     <div className="px-2 mx-auto max-w-screen-lg lg:px-12">
       <div className="overflow-hidden relative shadow-md rounded-lg">
@@ -27,7 +29,16 @@ const PointTable = ({ score }: PointsProps) => {
           </thead>
           <tbody>
             {score.map((user, index) => (
-              <tr key={user.id} className={entryStyle}>
+              <tr
+                key={user.id}
+                className={entryStyle}
+                onClick={async () => {
+                  const bordId = await getUserId.mutateAsync({
+                    userId: user.userId,
+                  });
+                  window.open(`/board/${bordId}`, "_blank");
+                }}
+              >
                 <th scope="row" className="py-4 px-6 font-medium text-white">
                   {index + 1}
                 </th>

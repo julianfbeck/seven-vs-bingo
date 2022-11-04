@@ -1,6 +1,7 @@
 import { createRouter } from "./context";
 import { TRPCError } from "@trpc/server";
 import { Constants, indexToPoints } from "../../utils/constants";
+import { z } from "zod";
 
 export const bingoWinningEntries = [
   //rows
@@ -40,7 +41,19 @@ export const pointsRouter = createRouter()
       });
     },
   })
-
+  .mutation("Open", {
+    input: z.object({
+      userId: z.string(),
+    }),
+    async resolve({ ctx, input }) {
+      const user = await ctx.prisma.user.findUnique({
+        where: {
+          id: input.userId,
+        },
+      });
+      return user?.shareId;
+    },
+  })
   .middleware(async ({ ctx, next }) => {
     // Any queries or mutations after this middleware will
     // raise an error unless there is a current session

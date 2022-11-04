@@ -31,8 +31,9 @@ const FeedbackModal: React.FC<SelectProjectionModalProps> = ({
       <DialogContent>
         <DialogTitle>Schreib uns</DialogTitle>
         <DialogDescription>
-          Ist ein Ereignis eingetroffen und du möchtest uns Bescheid geben? Dann
-          schreib uns doch einfach eine Nachricht.
+          Ist ein Ereignis eingetroffen und du möchtest uns Bescheid geben? Oder
+          hast du ein anderes Anliegen: Dann schreib uns doch einfach eine
+          Nachricht. Wir freuen uns über dein Feedback!
         </DialogDescription>
         <input
           type="search"

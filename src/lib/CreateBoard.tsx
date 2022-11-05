@@ -84,11 +84,16 @@ export const CreateBoard = () => {
           projections={entries || []}
           disabled={numberSelectedProjections >= 25}
           onProjectionClick={(projection: Projection) => {
-            const map = new Map(selectedProjections);
-            map.set(projection.id, !map.get(projection.id));
-            setSelectedProjections(map);
+            // const map = new Map(selectedProjections);
+            // map.set(projection.id, !map.get(projection.id));
+            // setSelectedProjections(map);
+            console.log("no");
           }}
         />
+      </div>
+      <div className="flex justify-center text-gray-100 mt-5">
+        Da die Staffel schon gestartet ist kannst du nur noch zufällig
+        Ereignisse auswählen.
       </div>
       <div className="flex items-center justify-center">
         <div className="inline-flex justify-center p-2">
@@ -98,13 +103,13 @@ export const CreateBoard = () => {
           >
             Zufällig auswählen
           </button>
-          <button
+          {/* <button
             className="py-2 px-3 items-center  text-sm font-medium text-center text-white bg-green-600 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-800 mr-2 disabled:opacity-50 disabled:cursor-not-allowed"
             disabled={numberSelectedProjections != 25}
             onClick={() => setConfirmModal(true)}
           >
             {numberSelectedProjections}/25 Board erstellen
-          </button>
+          </button> */}
           <button
             className=" py-2 px-3 items-center  text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-800 mr-1 disabled:opacity-50"
             onClick={() => {

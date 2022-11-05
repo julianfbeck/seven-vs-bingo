@@ -32,7 +32,7 @@ const SelectProjectionModal: React.FC<SelectProjectionModalProps> = ({
   return (
     <Dialog open={isOpen}>
       <DialogContent>
-        <DialogTitle>Bingo Ereigniss {fieldNumber}:</DialogTitle>
+        <DialogTitle>Bingo Ereignis {fieldNumber}:</DialogTitle>
         <DialogTitle>{projection.text}</DialogTitle>
         <div className="text-white mt-3">
           <DialogDescription>

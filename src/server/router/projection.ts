@@ -10,6 +10,9 @@ export const projectionRouter = createRouter()
         where: {
           isApproved: true,
         },
+        orderBy: {
+          hasBecomeTrue: "desc",
+        },
       });
     },
   })

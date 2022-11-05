@@ -18,6 +18,7 @@ const Punkte: NextPage = () => {
               Punkte:
             </span>
           </h1>
+          <div className="text-gray-200 mt-5">Klicke auf ein Nutzer um sein Board zu sehen</div>
         </div>
         <div>
           <PointTable score={entries || []} />

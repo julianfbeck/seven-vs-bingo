@@ -103,13 +103,13 @@ export const CreateBoard = () => {
           >
             Zufällig auswählen
           </button>
-          {/* <button
+          <button
             className="py-2 px-3 items-center  text-sm font-medium text-center text-white bg-green-600 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-800 mr-2 disabled:opacity-50 disabled:cursor-not-allowed"
             disabled={numberSelectedProjections != 25}
             onClick={() => setConfirmModal(true)}
           >
             {numberSelectedProjections}/25 Board erstellen
-          </button> */}
+          </button>
           <button
             className=" py-2 px-3 items-center  text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-800 mr-1 disabled:opacity-50"
             onClick={() => {

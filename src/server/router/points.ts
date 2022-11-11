@@ -2,6 +2,7 @@ import { createRouter } from "./context";
 import { TRPCError } from "@trpc/server";
 import { Constants, indexToPoints } from "../../utils/constants";
 import { z } from "zod";
+import { Projection } from "@prisma/client";
 
 export const bingoWinningEntries = [
   //rows
@@ -105,19 +106,23 @@ export const pointsRouter = createRouter()
       }
       // get all users
       const users = await ctx.prisma.user.findMany();
+
+      // get all projections
+      const projections = await ctx.prisma.projection.findMany();
+
       //iterate over users
       for (const user of users) {
         const entries = await ctx.prisma.bingoEntry.findMany({
           where: {
             userId: user.id,
           },
-          include: {
-            projection: true,
-          },
         });
         if (entries.length > 0) {
           const winningPositions = entries
-            .filter((e) => e.projection.hasBecomeTrue)
+            .filter(
+              (e) =>
+                getProjectionById(e.projectionId, projections)?.hasBecomeTrue
+            )
             .map((entry) => entry.position);
 
           // check if any of the winning positions are in the winning entries
@@ -127,9 +132,19 @@ export const pointsRouter = createRouter()
             );
           });
           const pointsTotal = entries
-            .filter((entry) => entry.projection.hasBecomeTrue)
+            .filter(
+              (entry) =>
+                getProjectionById(entry.projectionId, projections)
+                  ?.hasBecomeTrue
+            )
             .reduce((acc, entry) => {
-              return acc + indexToPoints(entry.projection.difficulty);
+              return (
+                acc +
+                indexToPoints(
+                  getProjectionById(entry.projectionId, projections)
+                    ?.difficulty || 0
+                )
+              );
             }, 0);
 
           // calculate points for rings
@@ -138,7 +153,13 @@ export const pointsRouter = createRouter()
               row.includes(entry.position)
             );
             const currentPoints = currentPositions.reduce((acc, entry) => {
-              return acc + indexToPoints(entry.projection.difficulty);
+              return (
+                acc +
+                indexToPoints(
+                  getProjectionById(entry.projectionId, projections)
+                    ?.difficulty || 0
+                )
+              );
             }, 0);
 
             return acc + currentPoints * Constants.MultiplierPerBingo;
@@ -160,3 +181,7 @@ export const pointsRouter = createRouter()
       }
     },
   });
+
+function getProjectionById(id: string, projections: Projection[]) {
+  return projections.find((projection) => projection.id === id);
+}

@@ -77,7 +77,6 @@ const Home: NextPage = () => {
             <div className="justify-center justify-self-center ">
               <ProjectionList projections={entries || []} />
             </div>
-
             <div className="justify-center justify-self-center md:justify-start md:justify-self-start order-first md:order-last mt-20 col-span-1 ">
               <ScoreBoard />
             </div>

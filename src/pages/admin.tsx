@@ -152,6 +152,20 @@ const OldBingoEntries = () => {
     },
   });
 
+  const isBlocked = trpc.useMutation("projection.auth.Blocked", {
+    onMutate: () => {
+      ctx.cancelQuery(["projection.getAll"]);
+
+      const optimisticUpdate = ctx.getQueryData(["projection.getAll"]);
+      if (optimisticUpdate) {
+        ctx.setQueryData(["projection.getAll"], optimisticUpdate);
+      }
+    },
+    onSettled: () => {
+      ctx.invalidateQueries(["projection.getAll"]);
+    },
+  });
+
   return (
     <>
       <button
@@ -172,6 +186,11 @@ const OldBingoEntries = () => {
               id: entry.id,
             })
           }
+          onBlock={async () => {
+            await isBlocked.mutateAsync({
+              id: entry.id,
+            });
+          }}
         />
       ))}
     </>

@@ -84,16 +84,15 @@ export const CreateBoard = () => {
           projections={entries || []}
           disabled={numberSelectedProjections >= 25}
           onProjectionClick={(projection: Projection) => {
-            // const map = new Map(selectedProjections);
-            // map.set(projection.id, !map.get(projection.id));
-            // setSelectedProjections(map);
-            console.log("no");
+            const map = new Map(selectedProjections);
+            map.set(projection.id, !map.get(projection.id));
+            setSelectedProjections(map);
           }}
         />
       </div>
       <div className="flex justify-center text-gray-100 mt-5">
-        Da die Staffel schon gestartet ist kannst du nur noch zufällig
-        Ereignisse auswählen.
+        Da die Staffel schon gestartet ist kannst du nur noch Ereignisse
+        auswählen die noch nicht Eingetroffen sind.
       </div>
       <div className="flex items-center justify-center">
         <div className="inline-flex justify-center p-2">

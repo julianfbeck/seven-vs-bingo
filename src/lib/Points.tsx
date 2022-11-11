@@ -7,9 +7,10 @@ interface PointsProps {
     projection: Projection;
   })[];
   external?: boolean;
+  setTotalPoints: (points: number) => void;
 }
 
-const Points = ({ points, entries, external }: PointsProps) => {
+const Points = ({ points, entries, external, setTotalPoints }: PointsProps) => {
   const calcualtePoints = () => {
     const total = entries
       .filter((entry) => entry.projection.hasBecomeTrue)
@@ -21,6 +22,7 @@ const Points = ({ points, entries, external }: PointsProps) => {
       return acc + calculatePointsPerRow(row);
     }, 0);
 
+    setTotalPoints(total + bingoPoints);
     return total + bingoPoints;
   };
   const calculatePointsPerRow = (row: number[]) => {
@@ -31,7 +33,8 @@ const Points = ({ points, entries, external }: PointsProps) => {
       return acc + indexToPoints(entry.projection.difficulty);
     }, 0);
 
-    return currentPoints * Constants.MultiplierPerBingo;
+    const total = currentPoints * Constants.MultiplierPerBingo;
+    return total;
   };
 
   return (

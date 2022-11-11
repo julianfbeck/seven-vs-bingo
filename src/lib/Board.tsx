@@ -4,6 +4,8 @@ import Points from "./Points";
 
 import { useState } from "react";
 import FeedbackModal from "./FeedbackModal";
+import { TwitterShareButton } from "react-share";
+import { Icon } from "@iconify/react";
 interface BoardProps {
   boardId: string;
 }
@@ -11,6 +13,7 @@ const Board = ({ boardId }: BoardProps) => {
   const { data: entries, isLoading } = trpc.useQuery(["auth.bingoEntriesget"]);
   const { data: points } = trpc.useQuery(["auth.points.get"]);
   const [feedbackVisibla, setFeedbackVisible] = useState(false);
+  const [totalPoints, setTotalPoints] = useState(0);
   const sendFeedback = trpc.useMutation("auth.bingoEntriesFeedback");
   const fields = [
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
@@ -39,12 +42,30 @@ const Board = ({ boardId }: BoardProps) => {
             Bingo Board
           </span>
         </h1>
-        <button
-          className="bg-white text-black font-bold py-2 px-4 rounded"
-          onClick={copyClipboard}
-        >
-          Board Teilen
-        </button>
+        <div className="inline-flex mt-1">
+          <button
+            className="bg-white text-black font-bold py-2 px-4 rounded"
+            onClick={copyClipboard}
+          >
+            Board Teilen
+          </button>
+          {boardId && totalPoints && (
+            <TwitterShareButton
+              title={`Ich hab ${totalPoints} Punkte beim 7 vs. Wild Bingo!`}
+              url={"https://sevenvsbingo.de/board/" + boardId}
+              hashtags={["7vswild", "7vsbingo"]}
+            >
+              <button className="bg-[#2297ed] ml-2 text-white font-bold py-2 px-4 rounded text-center inline-flex items-center">
+                <Icon
+                  className="w-4 h-4 mr-2"
+                  icon="akar-icons:twitter-fill"
+                  color="white"
+                />
+                Teilen
+              </button>
+            </TwitterShareButton>
+          )}
+        </div>
       </div>
       <div className="max-w-screen-sm mx-auto container p-2">
         <div className="grid grid-cols-5 gap-2 overflow-visible">
@@ -76,7 +97,13 @@ const Board = ({ boardId }: BoardProps) => {
           }}
         />
       </div>
-      {points && entries && <Points entries={entries} points={points} />}
+      {points && entries && (
+        <Points
+          entries={entries}
+          points={points}
+          setTotalPoints={setTotalPoints}
+        />
+      )}
     </>
   );
 };

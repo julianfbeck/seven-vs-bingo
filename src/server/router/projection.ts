@@ -23,6 +23,7 @@ export const projectionRouter = createRouter()
         where: {
           isApproved: true,
           hasBecomeTrue: false,
+          blocked: false,
         },
         orderBy: {
           difficulty: "asc",
@@ -148,6 +149,26 @@ export const projectionRouter = createRouter()
           },
           data: {
             hasBecomeTrue: true,
+          },
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  })
+  .mutation("auth.Blocked", {
+    input: z.object({
+      id: z.string(),
+    }),
+    //TODO add check if user is admin
+    async resolve({ ctx, input }) {
+      try {
+        await ctx.prisma.projection.update({
+          where: {
+            id: input.id,
+          },
+          data: {
+            blocked: true,
           },
         });
       } catch (error) {

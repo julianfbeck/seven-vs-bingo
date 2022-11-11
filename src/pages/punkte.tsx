@@ -1,11 +1,36 @@
-import { NextPage } from "next";
+import { GetServerSideProps, NextPage } from "next";
 import { CustomHeader } from "../lib/CustomHeader";
 import Navbar from "../lib/navbar";
 import PointTable from "../lib/PointTable";
 import { trpc } from "../utils/trpc";
 
-const Punkte: NextPage = () => {
-  const { data: entries } = trpc.useQuery(["auth.pointshighscore.all"]);
+import { prisma } from "../server/db/client";
+import { Score } from "@prisma/client";
+
+interface PointsProps {
+  score: Score[];
+}
+export const getServerSideProps: GetServerSideProps<PointsProps> = async ({
+  res,
+}) => {
+  res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=60, stale-while-revalidate=120"
+  );
+  const score = await prisma.score.findMany({
+    orderBy: {
+      score: "desc",
+    },
+  });
+
+  return {
+    props: {
+      score: JSON.parse(JSON.stringify(score)),
+    },
+  };
+};
+
+const Punkte: NextPage<PointsProps> = ({ score }) => {
   return (
     <>
       <Navbar />
@@ -18,10 +43,12 @@ const Punkte: NextPage = () => {
               Punkte:
             </span>
           </h1>
-          <div className="text-gray-200 mt-5">Klicke auf ein Nutzer um sein Board zu sehen</div>
+          <div className="text-gray-200 mt-5">
+            Klicke auf ein Nutzer um sein Board zu sehen
+          </div>
         </div>
         <div>
-          <PointTable score={entries || []} />
+          <PointTable score={score || []} />
         </div>
       </main>
     </>

@@ -39,7 +39,9 @@ const SharedBoard = ({ entries, username, points }: SharedBoardProps) => {
           </div>
         </div>
       </div>
-      {points && entries && <Points entries={entries} points={points} external />}
+      {points && entries && (
+        <Points entries={entries} points={points} external />
+      )}
     </>
   );
 };

@@ -7,7 +7,7 @@ interface PointsProps {
     projection: Projection;
   })[];
   external?: boolean;
-  setTotalPoints: (points: number) => void;
+  setTotalPoints?: (points: number) => void;
 }
 
 const Points = ({ points, entries, external, setTotalPoints }: PointsProps) => {
@@ -21,8 +21,9 @@ const Points = ({ points, entries, external, setTotalPoints }: PointsProps) => {
     const bingoPoints = points.reduce((acc, row) => {
       return acc + calculatePointsPerRow(row);
     }, 0);
-
-    setTotalPoints(total + bingoPoints);
+    if (setTotalPoints) {
+      setTotalPoints(total + bingoPoints);
+    }
     return total + bingoPoints;
   };
   const calculatePointsPerRow = (row: number[]) => {

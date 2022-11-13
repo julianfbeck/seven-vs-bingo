@@ -9,6 +9,7 @@ import Image from "next/image";
 const navigationTemplate = [
   { name: "Start", href: "/", current: true },
   { name: "Bingo", href: "/bingo", current: false },
+  { name: "Karten", href: "/karten", current: false },
   { name: "Punkte", href: "/punkte", current: false },
   { name: "Über", href: "/about", current: false },
 ];

@@ -118,7 +118,7 @@ const BlockedField = ({ projection }: TextProps) => {
   return (
     <div
       className={
-        "container aspect-square  rounded-xl bg-red-500 text-white border " +
+        "container aspect-square  rounded-xl bg-slate-800 text-white border opacity-50 " +
         getBorderColor()
       }
     >

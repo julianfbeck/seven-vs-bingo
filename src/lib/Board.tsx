@@ -12,6 +12,7 @@ interface BoardProps {
 const Board = ({ boardId }: BoardProps) => {
   const { data: entries, isLoading } = trpc.useQuery(["auth.bingoEntriesget"]);
   const { data: points } = trpc.useQuery(["auth.points.get"]);
+  const { data: place } = trpc.useQuery(["auth.points.getPlace"]);
   const [feedbackVisibla, setFeedbackVisible] = useState(false);
   const [totalPoints, setTotalPoints] = useState(0);
   const sendFeedback = trpc.useMutation("auth.bingoEntriesFeedback");
@@ -42,6 +43,9 @@ const Board = ({ boardId }: BoardProps) => {
             Bingo Board
           </span>
         </h1>
+        <div className="font-bold text-green-500 to-lime-500 text-3xl ">
+          Platz #{place}
+        </div>
         <div className="inline-flex mt-1">
           <button
             className="bg-white text-black font-bold py-2 px-4 rounded"

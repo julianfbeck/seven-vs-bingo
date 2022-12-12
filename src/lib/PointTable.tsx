@@ -12,6 +12,15 @@ const PointTable = ({ score }: PointsProps) => {
   const getUserId = trpc.useMutation("auth.pointsOpen");
   return (
     <div className="px-2 mx-auto max-w-screen-lg lg:px-12">
+      {/* show current position of user */}
+      {session?.user && (
+        <div className="text-center text-gray-200 my-3">
+          Du bist aktuell auf Platz <br />
+          <span className="font-bold bg-clip-text text-transparent bg-gradient-to-r from-green-700 via-green-500 to-lime-500 text-3xl first-letter:">
+            #{score.findIndex((user) => user.userId == session?.user?.id) + 1}
+          </span>
+        </div>
+      )}
       <div className="overflow-hidden relative shadow-md rounded-lg">
         <table className="table-auto w-full text-sm text-left  text-gray-400">
           <thead className="text-xs  uppercase  bg-gradient-to-b from-green-800 to-green-700 text-gray-100">
@@ -20,7 +29,7 @@ const PointTable = ({ score }: PointsProps) => {
                 Platz
               </th>
               <th scope="col" className="py-3 px-6">
-                Benutzer
+                Benutzer (klick für Board)
               </th>
               <th scope="col" className="px-6 text-right">
                 Punkte

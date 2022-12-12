@@ -90,6 +90,19 @@ export const pointsRouter = createRouter()
       });
     },
   })
+  .query(".getPlace", {
+    async resolve({ ctx }): Promise<number> {
+      const score = await ctx.prisma.score.findMany({
+        orderBy: {
+          score: "desc",
+        },
+      });
+      if (!ctx.session?.user?.id) {
+        throw new TRPCError({ code: "UNAUTHORIZED" });
+      }
+      return score.findIndex((s) => s.userId === ctx.session?.user?.id) + 1;
+    },
+  })
   .mutation(".recalculate", {
     async resolve({ ctx }) {
       if (!ctx.session?.user?.id) {
